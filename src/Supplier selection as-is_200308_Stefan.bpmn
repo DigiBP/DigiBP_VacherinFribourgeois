@@ -3,7 +3,6 @@
   <bpmn:collaboration id="Collaboration_1excpi3">
     <bpmn:participant id="Participant_1pfq9rc" name="Supplier Selection Process" processRef="Process_0y9gqot" />
     <bpmn:participant id="Participant_030vo72" />
-    <bpmn:messageFlow id="MessageFlow_1mtvfzw" sourceRef="Participant_030vo72" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="MessageFlow_1145cg0" sourceRef="Activity_10gyyfp" targetRef="Participant_030vo72" />
     <bpmn:messageFlow id="MessageFlow_07egfr8" sourceRef="Participant_030vo72" targetRef="Activity_10gyyfp" />
     <bpmn:messageFlow id="MessageFlow_0ae91vp" sourceRef="Activity_1ow4kne" targetRef="Participant_030vo72" />
@@ -30,7 +29,6 @@
         <bpmn:flowNodeRef>Gateway_099wqu7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_11jgmie</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ph2az8</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1i4unef</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1r6si0p</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1d1j07y</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ij9xwd</bpmn:flowNodeRef>
@@ -39,6 +37,7 @@
         <bpmn:flowNodeRef>Activity_0jtct63</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1luk7ka</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0qonusw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1i4unef</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_005q9by" sourceRef="StartEvent_1" targetRef="Activity_0pqtqk6" />
@@ -187,11 +186,27 @@
       <bpmn:outgoing>Flow_19bwian</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0b1yo0s" />
     </bpmn:intermediateCatchEvent>
+    <bpmn:textAnnotation id="TextAnnotation_1inrfq5">
+      <bpmn:text>suitable for decision table</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0icii57" sourceRef="Activity_17ocfqj" targetRef="TextAnnotation_1inrfq5" />
+    <bpmn:textAnnotation id="TextAnnotation_196fod7">
+      <bpmn:text>maybe business rule what the critera for business rule are</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1kgh7uu" sourceRef="Activity_0e2slia" targetRef="TextAnnotation_196fod7" />
+    <bpmn:textAnnotation id="TextAnnotation_0o5j7i9">
+      <bpmn:text>requistor as a subprocess ok / not ok</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_08c7pfl" sourceRef="Activity_0jtct63" targetRef="TextAnnotation_0o5j7i9" />
+    <bpmn:textAnnotation id="TextAnnotation_1uvecgm">
+      <bpmn:text>split rework and decline (separate!)</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_02jqhmr" sourceRef="Activity_1ehuq7m" targetRef="TextAnnotation_1uvecgm" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1excpi3">
       <bpmndi:BPMNShape id="Participant_1pfq9rc_di" bpmnElement="Participant_1pfq9rc" isHorizontal="true">
-        <dc:Bounds x="129" y="145" width="2471" height="585" />
+        <dc:Bounds x="129" y="70" width="2471" height="660" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ehuq7m_di" bpmnElement="Activity_1ehuq7m">
         <dc:Bounds x="2040" y="210" width="100" height="80" />
@@ -326,7 +341,7 @@
         <dc:Bounds x="159" y="590" width="2441" height="140" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1wl1cz9_di" bpmnElement="Lane_1wl1cz9" isHorizontal="true">
-        <dc:Bounds x="159" y="145" width="2441" height="445" />
+        <dc:Bounds x="159" y="70" width="2441" height="520" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0hkqhd2_di" bpmnElement="Flow_0hkqhd2">
         <di:waypoint x="1950" y="325" />
@@ -339,10 +354,6 @@
       <bpmndi:BPMNShape id="Participant_15caoqu_di" bpmnElement="Participant_030vo72" isHorizontal="true">
         <dc:Bounds x="129" y="50" width="2471" height="60" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="MessageFlow_1mtvfzw_di" bpmnElement="MessageFlow_1mtvfzw">
-        <di:waypoint x="240" y="110" />
-        <di:waypoint x="240" y="332" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_15r44ji_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="222" y="332" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -483,6 +494,34 @@
       <bpmndi:BPMNEdge id="MessageFlow_1dpdm8i_di" bpmnElement="MessageFlow_1dpdm8i">
         <di:waypoint x="1540" y="110" />
         <di:waypoint x="1540" y="332" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1inrfq5_di" bpmnElement="TextAnnotation_1inrfq5">
+        <dc:Bounds x="550" y="230" width="100" height="41" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0icii57_di" bpmnElement="Association_0icii57">
+        <di:waypoint x="540" y="310" />
+        <di:waypoint x="580" y="271" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_196fod7_di" bpmnElement="TextAnnotation_196fod7">
+        <dc:Bounds x="1150" y="230" width="100" height="84" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1kgh7uu_di" bpmnElement="Association_1kgh7uu">
+        <di:waypoint x="1143" y="314" />
+        <di:waypoint x="1150" y="309" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0o5j7i9_di" bpmnElement="TextAnnotation_0o5j7i9">
+        <dc:Bounds x="1690" y="470" width="100" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_08c7pfl_di" bpmnElement="Association_08c7pfl">
+        <di:waypoint x="1704" y="390" />
+        <di:waypoint x="1731" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1uvecgm_di" bpmnElement="TextAnnotation_1uvecgm">
+        <dc:Bounds x="2140" y="130" width="100" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_02jqhmr_di" bpmnElement="Association_02jqhmr">
+        <di:waypoint x="2133" y="211" />
+        <di:waypoint x="2161" y="185" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
