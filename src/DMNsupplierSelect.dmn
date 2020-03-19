@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_0j4tbnn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
+  <decision id="Decision_1apo73x" name="Decision 1">
+    <decisionTable id="decisionTable_1" hitPolicy="COLLECT" aggregation="SUM">
+      <input id="input_1" label="confidence in project team">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0xl4yow">
+          <text>"low","medium","high"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_102ouzc" label="contract terms">
+        <inputExpression id="LiteralExpression_1t5h8qz" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1mry8j4">
+          <text>"bad","good"</text>
+        </inputValues>
+      </input>
+      <output id="output_1" label="score" typeRef="string" />
+      <rule id="DecisionRule_1x0hb29">
+        <inputEntry id="UnaryTests_0u5vp8a">
+          <text>"low"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u00czv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f6p95u">
+          <text>-7</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0su4y8u">
+        <inputEntry id="UnaryTests_1b4uo5k">
+          <text>"medium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cw290q">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q6kkdt">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08842ua">
+        <inputEntry id="UnaryTests_1blh3el">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qdfqga">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rmwh8m">
+          <text>+7</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zh33mp">
+        <inputEntry id="UnaryTests_1w3rz3x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oalre2">
+          <text>"bad"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yx9fl4">
+          <text>-5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vke15k">
+        <inputEntry id="UnaryTests_0zdlt9u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14cs2f6">
+          <text>"good"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nte75g">
+          <text>+5</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

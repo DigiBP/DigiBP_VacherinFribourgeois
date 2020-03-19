@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1vvtrhh" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
+  <decision id="Decision_1j2wrna" name="Decis">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+      <biodi:edge source="InputData_1vm4jij">
+        <biodi:waypoints x="231" y="318" />
+        <biodi:waypoints x="230" y="230" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1vm4jij" />
+    </informationRequirement>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="category">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0ex3dk7">
+          <text>"IT hardware","IT software"</text>
+        </inputValues>
+      </input>
+      <output id="output_1" label="availability" typeRef="boolean" />
+      <rule id="DecisionRule_0gltuvc">
+        <inputEntry id="UnaryTests_0lhpcuj">
+          <text>"project management software"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w9qqrv">
+          <text>yes</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dcojp5">
+        <inputEntry id="UnaryTests_0yd6k0i">
+          <text>"CRM software"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16m40ij">
+          <text>yes</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wt55x5">
+        <inputEntry id="UnaryTests_0ot7lb2">
+          <text>"Office vendor"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jfpbcq">
+          <text>yes</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gtoajo">
+        <inputEntry id="UnaryTests_0u5au00">
+          <text>"BI software"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vx3sah">
+          <text>yes</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tmnmm6">
+        <inputEntry id="UnaryTests_0ngwmjk">
+          <text>"ERP software"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h69ncn">
+          <text>no</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0d1km34">
+        <inputEntry id="UnaryTests_0g2jexh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0i1j7vx">
+          <text>no</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1vm4jij" name="list of suppliers">
+    <extensionElements>
+      <biodi:bounds x="168" y="318" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+</definitions>
