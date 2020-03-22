@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_0j4tbnn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
-  <decision id="Decision_1apo73x" name="Decision 1">
+  <decision id="Decision_1apo73x" name="select supplier">
     <decisionTable id="decisionTable_1" hitPolicy="COLLECT" aggregation="SUM">
       <input id="input_1" label="confidence in project team">
         <inputExpression id="inputExpression_1" typeRef="string">
-          <text></text>
+          <text>confidence</text>
         </inputExpression>
         <inputValues id="UnaryTests_0xl4yow">
           <text>"low","medium","high"</text>
@@ -12,13 +12,13 @@
       </input>
       <input id="InputClause_102ouzc" label="contract terms">
         <inputExpression id="LiteralExpression_1t5h8qz" typeRef="string">
-          <text></text>
+          <text>terms</text>
         </inputExpression>
         <inputValues id="UnaryTests_1mry8j4">
           <text>"bad","good"</text>
         </inputValues>
       </input>
-      <output id="output_1" label="score" typeRef="string" />
+      <output id="output_1" label="score" typeRef="long" />
       <rule id="DecisionRule_1x0hb29">
         <inputEntry id="UnaryTests_0u5vp8a">
           <text>"low"</text>
@@ -49,7 +49,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1rmwh8m">
-          <text>+7</text>
+          <text>7</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0zh33mp">
@@ -71,7 +71,7 @@
           <text>"good"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1nte75g">
-          <text>+5</text>
+          <text>5</text>
         </outputEntry>
       </rule>
     </decisionTable>
