@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0wevma3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0wevma3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
   <bpmn:collaboration id="Collaboration_1excpi3">
     <bpmn:participant id="Participant_1pfq9rc" name="Supplier Selection Process" processRef="Process_0y9gqot" />
     <bpmn:participant id="Participant_030vo72" name="Suppliers" />
@@ -71,7 +71,9 @@
         <bpmn:sourceRef>Flow_07g6e0o</bpmn:sourceRef>
         <bpmn:targetRef>Property_0pj8sys</bpmn:targetRef>
       </bpmn:dataInputAssociation>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_17ocfqj" name="Check if preferred supplier is available">
       <bpmn:incoming>Flow_0oce7ka</bpmn:incoming>
@@ -106,7 +108,9 @@
     <bpmn:manualTask id="Activity_0ij9xwd" name="Negotiating contract terms with suppliers">
       <bpmn:incoming>Flow_1hog41u</bpmn:incoming>
       <bpmn:outgoing>Flow_1jvc5xx</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:manualTask>
     <bpmn:sequenceFlow id="Flow_15hkcwp" sourceRef="Activity_1luk7ka" targetRef="Gateway_0n7b2ax" />
     <bpmn:sequenceFlow id="Flow_10f7edw" sourceRef="Activity_1d1j07y" targetRef="Activity_0ni7wke" />
@@ -120,7 +124,9 @@
     <bpmn:sequenceFlow id="Flow_195akb4" sourceRef="Activity_11jgmie" targetRef="Event_0ph2az8" />
     <bpmn:sequenceFlow id="Flow_03ohmjx" sourceRef="Activity_0ni7wke" targetRef="Event_0p1ke3a" />
     <bpmn:sequenceFlow id="Flow_199o5cl" name="yes" sourceRef="Gateway_10o3hv1" targetRef="Activity_11jgmie" />
-    <bpmn:sequenceFlow id="Flow_1fwerwr" name="no" sourceRef="Gateway_10o3hv1" targetRef="Activity_14cxly3" />
+    <bpmn:sequenceFlow id="Flow_1fwerwr" name="no" sourceRef="Gateway_10o3hv1" targetRef="Activity_14cxly3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">no</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_13ri5k9" sourceRef="Activity_17ocfqj" targetRef="Gateway_10o3hv1" />
     <bpmn:sequenceFlow id="Flow_0oce7ka" sourceRef="Activity_0pqtqk6" targetRef="Activity_17ocfqj" />
     <bpmn:startEvent id="Event_0u7ckkv" name="Purchasing requirement  arised">
@@ -130,7 +136,9 @@
     <bpmn:userTask id="Activity_1ow4kne" name="Request proof of concept / prototype">
       <bpmn:incoming>Flow_0xdmhub</bpmn:incoming>
       <bpmn:outgoing>Flow_0cais60</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0e2slia" name="Shortlist suppliers">
       <bpmn:incoming>Flow_1svl5hu</bpmn:incoming>
@@ -188,13 +196,17 @@
     </bpmn:exclusiveGateway>
     <bpmn:boundaryEvent id="Event_1bvr1ly" name="&#62;7 working days" attachedToRef="Activity_10gyyfp">
       <bpmn:outgoing>Flow_10atqvr</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_17f9xq0" />
+      <bpmn:timerEventDefinition id="TimerEventDefinition_17f9xq0">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">7d</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0jizmw5" sourceRef="SubProcess_0gwf75p" targetRef="Activity_1luk7ka" />
     <bpmn:subProcess id="SubProcess_0gwf75p" name="Test POC">
       <bpmn:incoming>Flow_0sorc1a</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0jizmw5</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:sequenceFlow id="SequenceFlow_1ot3rzf" sourceRef="StartEvent_0b9kfxc" targetRef="Task_097xvg2" />
       <bpmn:sequenceFlow id="SequenceFlow_1ujjviy" sourceRef="Task_097xvg2" targetRef="Task_0xal34a" />
       <bpmn:sequenceFlow id="SequenceFlow_1gms9yi" sourceRef="Task_0xal34a" targetRef="EndEvent_1624ck3" />
@@ -230,12 +242,16 @@
     <bpmn:userTask id="Activity_1tjsvkz" name="Ask for rework of POC / prototype">
       <bpmn:incoming>Flow_1cav1fr</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1b1o4mq</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_1ehuq7m" name="Reject POC / prototype">
       <bpmn:incoming>Flow_0hkqhd2</bpmn:incoming>
       <bpmn:outgoing>Flow_0149mqn</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_10atqvr" sourceRef="Event_1bvr1ly" targetRef="Gateway_1a6fze7" />
     <bpmn:textAnnotation id="TextAnnotation_15aszag">
