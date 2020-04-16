@@ -12,9 +12,9 @@
       <requiredInput href="#InputData_1vm4jij" />
     </informationRequirement>
     <decisionTable id="decisionTable_1" hitPolicy="FIRST">
-      <input id="input_1" label="software category">
+      <input id="input_1" label="component category">
         <inputExpression id="inputExpression_1" typeRef="string">
-          <text>softwarecategory</text>
+          <text>componentCategory</text>
         </inputExpression>
         <inputValues id="UnaryTests_0ex3dk7">
           <text>"PM","CRM","Office","BI","ERP"</text>
@@ -23,7 +23,7 @@
       <output id="output_1" label="availability" typeRef="boolean" />
       <rule id="DecisionRule_0gltuvc">
         <inputEntry id="UnaryTests_0lhpcuj">
-          <text>"PM"</text>
+          <text>"sails"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0w9qqrv">
           <text>true</text>
@@ -31,7 +31,7 @@
       </rule>
       <rule id="DecisionRule_0dcojp5">
         <inputEntry id="UnaryTests_0yd6k0i">
-          <text>"CRM"</text>
+          <text>"mast"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_16m40ij">
           <text>true</text>
@@ -39,7 +39,7 @@
       </rule>
       <rule id="DecisionRule_1wt55x5">
         <inputEntry id="UnaryTests_0ot7lb2">
-          <text>"Office"</text>
+          <text>"railing"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jfpbcq">
           <text>true</text>
@@ -47,15 +47,23 @@
       </rule>
       <rule id="DecisionRule_1gtoajo">
         <inputEntry id="UnaryTests_0u5au00">
-          <text>"BI"</text>
+          <text>"wood"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1vx3sah">
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0a7dswt">
+        <inputEntry id="UnaryTests_0m9mgft">
+          <text>"ropes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h7o0ir">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0tmnmm6">
         <inputEntry id="UnaryTests_0ngwmjk">
-          <text>"ERP"</text>
+          <text>"wheel"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1h69ncn">
           <text>false</text>
