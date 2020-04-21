@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1rzv8ah" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.2">
+  <bpmn:process id="Process_1t73uqi" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0hffv0f</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0hffv0f" sourceRef="StartEvent_1" targetRef="Activity_1ppufep" />
+    <bpmn:sequenceFlow id="Flow_1boh9si" sourceRef="Activity_1ppufep" targetRef="Activity_1cmidja" />
+    <bpmn:serviceTask id="Activity_1ppufep" name="Get requirements">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/u7qybfmoto62mtrwrnlxb41dmtgkit2d</camunda:inputParameter>
+            <camunda:outputParameter name="Requirements">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Requirements=object.Requirements;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0hffv0f</bpmn:incoming>
+      <bpmn:outgoing>Flow_1boh9si</bpmn:outgoing>
+      <bpmn:property id="Property_1vly57z" name="__targetRef_placeholder" />
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_07zdv1x" sourceRef="Activity_1cmidja" targetRef="Activity_16xxzzt" />
+    <bpmn:manualTask id="Activity_1cmidja" name="identify suppliers">
+      <bpmn:incoming>Flow_1boh9si</bpmn:incoming>
+      <bpmn:outgoing>Flow_07zdv1x</bpmn:outgoing>
+      <bpmn:property id="Property_1n2ubwv" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_04vbxvx">
+        <bpmn:sourceRef>DataStoreReference_1r2ubvs</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1n2ubwv</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:manualTask>
+    <bpmn:dataStoreReference id="DataStoreReference_1r2ubvs" name="Google" />
+    <bpmn:userTask id="Activity_16xxzzt" name="enter email address">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="email" label="E-mail address of supplier:" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_07zdv1x</bpmn:incoming>
+      <bpmn:outgoing>Flow_11wxd2s</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_11wxd2s" sourceRef="Activity_16xxzzt" targetRef="Activity_10j4crh" />
+    <bpmn:endEvent id="Event_1913vcc">
+      <bpmn:incoming>Flow_19mz5ak</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_19mz5ak" sourceRef="Activity_10j4crh" targetRef="Event_1913vcc" />
+    <bpmn:serviceTask id="Activity_10j4crh" name="post email address to list">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method" />
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+	"email":email
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/8a3bsfymribrng2dxrhg5i61qeghylw7</camunda:inputParameter>
+            <camunda:outputParameter name="supplierEmail">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+supplierEmail=object.email;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>postEmailPotentialSupplier</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11wxd2s</bpmn:incoming>
+      <bpmn:outgoing>Flow_19mz5ak</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:textAnnotation id="TextAnnotation_06l3iym">
+      <bpmn:text>CELIA: change to: 1. Service Task GET requirements 2. User Taks identify suppliers (shows requirements) 3. Service Task POST supplier Emails to potentialSupplier list</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_09u96iv" sourceRef="Activity_1ppufep" targetRef="TextAnnotation_06l3iym" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1t73uqi">
+      <bpmndi:BPMNShape id="TextAnnotation_06l3iym_di" bpmnElement="TextAnnotation_06l3iym">
+        <dc:Bounds x="160" y="85" width="240" height="84" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0hffv0f_di" bpmnElement="Flow_0hffv0f">
+        <di:waypoint x="298" y="250" />
+        <di:waypoint x="350" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1boh9si_di" bpmnElement="Flow_1boh9si">
+        <di:waypoint x="450" y="250" />
+        <di:waypoint x="510" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07zdv1x_di" bpmnElement="Flow_07zdv1x">
+        <di:waypoint x="610" y="250" />
+        <di:waypoint x="670" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11wxd2s_di" bpmnElement="Flow_11wxd2s">
+        <di:waypoint x="770" y="250" />
+        <di:waypoint x="830" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19mz5ak_di" bpmnElement="Flow_19mz5ak">
+        <di:waypoint x="930" y="250" />
+        <di:waypoint x="992" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="262" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0fifuqm_di" bpmnElement="Activity_1ppufep">
+        <dc:Bounds x="350" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vu0fxq_di" bpmnElement="Activity_1cmidja">
+        <dc:Bounds x="510" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1r2ubvs_di" bpmnElement="DataStoreReference_1r2ubvs">
+        <dc:Bounds x="535" y="115" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="542" y="85" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vqvrul_di" bpmnElement="Activity_16xxzzt">
+        <dc:Bounds x="670" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1913vcc_di" bpmnElement="Event_1913vcc">
+        <dc:Bounds x="992" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_030qd2f_di" bpmnElement="Activity_10j4crh">
+        <dc:Bounds x="830" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_09u96iv_di" bpmnElement="Association_09u96iv">
+        <di:waypoint x="351" y="217" />
+        <di:waypoint x="340" y="169" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_04vbxvx_di" bpmnElement="DataInputAssociation_04vbxvx">
+        <di:waypoint x="560" y="165" />
+        <di:waypoint x="560" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
