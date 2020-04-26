@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0cxeyv4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0cxeyv4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.2">
   <decision id="Decision_0l01cbh" name="Shortlist Score">
     <extensionElements>
       <biodi:bounds x="150" y="150" width="180" height="80" />
     </extensionElements>
     <decisionTable id="decisionTable_1">
-      <input id="input_1" label="completeness">
-        <inputExpression id="inputExpression_1" typeRef="boolean">
-          <text>completeness</text>
-        </inputExpression>
-      </input>
       <input id="InputClause_1n1oprh" label="industry experience [years]">
         <inputExpression id="LiteralExpression_1kt8k3o" typeRef="double">
-          <text>industryexperience</text>
+          <text>experience</text>
         </inputExpression>
       </input>
       <input id="InputClause_1cspc0j" label="price level">
         <inputExpression id="LiteralExpression_07owmtk" typeRef="string">
-          <text>pricelevel</text>
+          <text>price</text>
         </inputExpression>
         <inputValues id="UnaryTests_069b168">
           <text>"low","medium","high"</text>
@@ -25,177 +20,138 @@
       </input>
       <output id="output_1" label="score" name="score" typeRef="double" />
       <rule id="DecisionRule_1x77a8t">
-        <inputEntry id="UnaryTests_15zld3w">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1eqfk9g">
           <text>&gt;=10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_14t9is0">
-          <text>"low"</text>
+          <text>[0..1500]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_002zoo3">
           <text>10</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0p3mq7a">
-        <inputEntry id="UnaryTests_0jmvb7r">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1j88ems">
           <text>[5..9]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_15jig2n">
-          <text>"low"</text>
+          <text>[0..1500]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cuuvr7">
           <text>8</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_19nfem6">
-        <inputEntry id="UnaryTests_1oqb6qn">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1wq9tq4">
           <text>[1..4]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_03wfx7n">
-          <text>"low"</text>
+          <text>[0..1500]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1uyozj5">
           <text>6</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0lolddc">
-        <inputEntry id="UnaryTests_096uhk1">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1w7zwch">
           <text>0</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1s92dui">
-          <text>"low"</text>
+          <text>[0..1500]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ch8f9p">
           <text>4</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_16fmgcc">
-        <inputEntry id="UnaryTests_0gt23hl">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1xxn5fp">
           <text>&gt;=10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_04z8lhw">
-          <text>"medium"</text>
+          <text>[1501..5000]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0hy5p9k">
           <text>8.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ev3ton">
-        <inputEntry id="UnaryTests_0x11s0a">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1u6dc9z">
           <text>[5..9]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_05la79k">
-          <text>"medium"</text>
+          <text>[1501..5000]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ffmo19">
           <text>6.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0xjq0p8">
-        <inputEntry id="UnaryTests_16r8t7d">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0263uua">
           <text>[1..4]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zlbmma">
-          <text>"medium"</text>
+          <text>[1501..5000]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_16n41ia">
           <text>4.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0vg3sj9">
-        <inputEntry id="UnaryTests_0k091ut">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1v5mw9e">
           <text>0</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0a545h0">
-          <text>"medium"</text>
+          <text>[1501..5000]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_010e5zr">
           <text>2.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_10kqfz8">
-        <inputEntry id="UnaryTests_16edz1e">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_1pj56vl">
           <text>&gt;=10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1lv83sz">
-          <text>"high"</text>
+          <text>&gt;5000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_19gbly8">
           <text>7.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_07syufv">
-        <inputEntry id="UnaryTests_1mkucvk">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0i5w8oc">
           <text>[5..9]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ok9ke2">
-          <text>"high"</text>
+          <text>&gt;5000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0umk6re">
           <text>5.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1jrv5ct">
-        <inputEntry id="UnaryTests_1wlyrwl">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0hi77pt">
           <text>[1..4]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0kbbrop">
-          <text>"high"</text>
+          <text>&gt;5000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_01snpy5">
           <text>3.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1b6gcle">
-        <inputEntry id="UnaryTests_0iq8jz9">
-          <text>true</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_151irx7">
           <text>0</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1b5nmvg">
-          <text>"high"</text>
+          <text>&gt;5000</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1tp5uyx">
           <text>1.5</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1p2qkhj">
-        <inputEntry id="UnaryTests_1tk9gw4">
-          <text>false</text>
-        </inputEntry>
         <inputEntry id="UnaryTests_0yuczzh">
           <text></text>
         </inputEntry>
@@ -204,6 +160,17 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_02zce1h">
           <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0uau4cn">
+        <inputEntry id="UnaryTests_008gblg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vbgiz2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y5068d">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
