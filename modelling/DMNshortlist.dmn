@@ -7,7 +7,7 @@
     <decisionTable id="decisionTable_1">
       <input id="InputClause_1n1oprh" label="industry experience [years]">
         <inputExpression id="LiteralExpression_1kt8k3o" typeRef="double" expressionLanguage="javascript">
-          <text>experience</text>
+          <text>Experience</text>
         </inputExpression>
       </input>
       <output id="output_1" label="score" name="score" typeRef="double" />
