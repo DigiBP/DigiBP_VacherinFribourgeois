@@ -17,7 +17,6 @@
   <bpmn:process id="Process_0y9gqot" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1df6u8i">
       <bpmn:lane id="Lane_1wl1cz9" name="Strategic Purchaser">
-        <bpmn:flowNodeRef>Event_0kraxsn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_11oa60d</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1mdbjuv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_12d0qj0</bpmn:flowNodeRef>
@@ -40,11 +39,9 @@
         <bpmn:flowNodeRef>Gateway_10o3hv1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1630gzx</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_17ocfqj</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0kraxsn</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:endEvent id="Event_0kraxsn">
-      <bpmn:incoming>Flow_155p46g</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_155p46g" sourceRef="Activity_0bbi45y" targetRef="Event_0kraxsn" />
     <bpmn:startEvent id="Event_11oa60d">
       <bpmn:outgoing>Flow_0zqe3by</bpmn:outgoing>
@@ -188,6 +185,9 @@ SupplierExperience=object.Experience;</camunda:script>
       <bpmn:incoming>Flow_0rbq71y</bpmn:incoming>
       <bpmn:outgoing>Flow_13ri5k9</bpmn:outgoing>
     </bpmn:businessRuleTask>
+    <bpmn:endEvent id="Event_0kraxsn">
+      <bpmn:incoming>Flow_155p46g</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:textAnnotation id="TextAnnotation_1fwgcaj">
       <bpmn:text>only use experience as input value; if experience below 3 years, reject, if above continue</bpmn:text>
     </bpmn:textAnnotation>
@@ -217,10 +217,8 @@ wheel, sails, mast, railing, wood, ropes</bpmn:text>
         <dc:Bounds x="159" y="330" width="3121" height="620" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_155p46g_di" bpmnElement="Flow_155p46g">
-        <di:waypoint x="2720" y="619" />
-        <di:waypoint x="2689" y="619" />
-        <di:waypoint x="2689" y="620" />
-        <di:waypoint x="2658" y="620" />
+        <di:waypoint x="2820" y="619" />
+        <di:waypoint x="2912" y="619" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13nh1a2_di" bpmnElement="Flow_13nh1a2">
         <di:waypoint x="2640" y="619" />
@@ -406,7 +404,7 @@ wheel, sails, mast, railing, wood, ropes</bpmn:text>
         <dc:Bounds x="2540" y="579" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0kraxsn_di" bpmnElement="Event_0kraxsn">
-        <dc:Bounds x="2622" y="602" width="36" height="36" />
+        <dc:Bounds x="2912" y="601" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06xyvv6_di" bpmnElement="Activity_0bbi45y">
         <dc:Bounds x="2720" y="579" width="100" height="80" />
