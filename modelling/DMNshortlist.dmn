@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0cxeyv4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.2">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0cxeyv4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
   <decision id="Decision_0l01cbh" name="Shortlist Score">
     <extensionElements>
       <biodi:bounds x="150" y="150" width="180" height="80" />
     </extensionElements>
     <decisionTable id="decisionTable_1">
-      <input id="InputClause_1n1oprh" label="industry experience [years]">
+      <input id="InputClause_1n1oprh" label="industry experience [years]" camunda:inputVariable="Experience">
         <inputExpression id="LiteralExpression_1kt8k3o" typeRef="double" expressionLanguage="javascript">
-          <text>Experience</text>
+          <text></text>
         </inputExpression>
       </input>
-      <output id="output_1" label="score" name="score" typeRef="double" />
+      <output id="output_1" label="score" name="score" typeRef="boolean" />
       <rule id="DecisionRule_1x77a8t">
         <inputEntry id="UnaryTests_1eqfk9g">
           <text>&gt;=3</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_002zoo3">
-          <text>yes</text>
+          <text>true</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0p3mq7a">
@@ -24,15 +24,7 @@
           <text>&lt;3</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cuuvr7">
-          <text>no</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0uau4cn">
-        <inputEntry id="UnaryTests_008gblg">
-          <text>-</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0y5068d">
-          <text>no</text>
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>
