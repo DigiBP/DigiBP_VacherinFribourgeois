@@ -66,14 +66,15 @@
                 <camunda:entry key="Content-Type">application/json</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
+              <camunda:script scriptFormat="JavaScript">Price = execution.getVariable("Price"); 
+Email = execution.getVariable("Email");</camunda:script>
+            </camunda:inputParameter>
             <camunda:inputParameter name="payload">
               <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
     "Experience": Experience, 
+"Price": Price, 
+"Email": Email
 });</camunda:script>
-"Price": execution.getVariable("Price"), 
-"Email": execution.getVariable("Email")
-});
-</camunda:script>
             </camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
