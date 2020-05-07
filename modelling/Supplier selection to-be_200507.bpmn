@@ -145,13 +145,6 @@ wheel, sails, mast, railing, wood, ropes</bpmn:text>
       <bpmn:outgoing>Flow_1qqhcqa</bpmn:outgoing>
       <bpmn:outgoing>Flow_0wavcnx</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_1mx6f8q" name="Reject supplier via email">
-      <bpmn:incoming>Flow_1qqhcqa</bpmn:incoming>
-      <bpmn:outgoing>Flow_0yzua73</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_1em3ipr">
-      <bpmn:incoming>Flow_0yzua73</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_1lg8l9l" name="Invite supplier for contract negotiation via email">
       <bpmn:incoming>Flow_0wavcnx</bpmn:incoming>
       <bpmn:outgoing>Flow_13nh1a2</bpmn:outgoing>
@@ -213,7 +206,22 @@ out = JSON.stringify({
       <bpmn:incoming>Flow_1odjlpn</bpmn:incoming>
       <bpmn:outgoing>Flow_1y0evmu</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_116qc6p" name="Reject offer">
+    <bpmn:sequenceFlow id="Flow_1y0evmu" sourceRef="Activity_1riynlt" targetRef="Activity_1potnbp" />
+    <bpmn:sequenceFlow id="Flow_01io751" sourceRef="Activity_1potnbp" targetRef="Gateway_06ja8um" />
+    <bpmn:sequenceFlow id="Flow_1qqhcqa" name="no" sourceRef="Gateway_06ja8um" targetRef="Activity_116qc6p" />
+    <bpmn:sequenceFlow id="Flow_0wavcnx" name="yes" sourceRef="Gateway_06ja8um" targetRef="Activity_1lg8l9l" />
+    <bpmn:sequenceFlow id="Flow_13nh1a2" sourceRef="Activity_1lg8l9l" targetRef="Activity_0bbi45y" />
+    <bpmn:sequenceFlow id="Flow_155p46g" sourceRef="Activity_0bbi45y" targetRef="Event_0kraxsn" />
+    <bpmn:sequenceFlow id="Flow_0be9ksf" sourceRef="Event_1xzi40e" targetRef="Activity_1gkfdhz" />
+    <bpmn:sequenceFlow id="Flow_0ish4wc" sourceRef="Activity_1gkfdhz" targetRef="Gateway_04a2as3" />
+    <bpmn:sequenceFlow id="Flow_1odjlpn" name="yes" sourceRef="Gateway_04a2as3" targetRef="Activity_1riynlt">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${OutputExperience}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_19ad7ym" name="no" sourceRef="Gateway_04a2as3" targetRef="Activity_116qc6p">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!OutputExperience}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1h2ri48" sourceRef="Activity_116qc6p" targetRef="Event_1ba9uew" />
+    <bpmn:serviceTask id="Activity_116qc6p" name="Reject supplier via email">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -240,35 +248,20 @@ out = JSON.stringify({
         </camunda:connector>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_19ad7ym</bpmn:incoming>
+      <bpmn:incoming>Flow_1qqhcqa</bpmn:incoming>
       <bpmn:outgoing>Flow_1h2ri48</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_1ba9uew">
       <bpmn:incoming>Flow_1h2ri48</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1y0evmu" sourceRef="Activity_1riynlt" targetRef="Activity_1potnbp" />
-    <bpmn:sequenceFlow id="Flow_01io751" sourceRef="Activity_1potnbp" targetRef="Gateway_06ja8um" />
-    <bpmn:sequenceFlow id="Flow_1qqhcqa" name="no" sourceRef="Gateway_06ja8um" targetRef="Activity_1mx6f8q" />
-    <bpmn:sequenceFlow id="Flow_0wavcnx" name="yes" sourceRef="Gateway_06ja8um" targetRef="Activity_1lg8l9l" />
-    <bpmn:sequenceFlow id="Flow_0yzua73" sourceRef="Activity_1mx6f8q" targetRef="Event_1em3ipr" />
-    <bpmn:sequenceFlow id="Flow_13nh1a2" sourceRef="Activity_1lg8l9l" targetRef="Activity_0bbi45y" />
-    <bpmn:sequenceFlow id="Flow_155p46g" sourceRef="Activity_0bbi45y" targetRef="Event_0kraxsn" />
-    <bpmn:sequenceFlow id="Flow_0be9ksf" sourceRef="Event_1xzi40e" targetRef="Activity_1gkfdhz" />
-    <bpmn:sequenceFlow id="Flow_0ish4wc" sourceRef="Activity_1gkfdhz" targetRef="Gateway_04a2as3" />
-    <bpmn:sequenceFlow id="Flow_1odjlpn" name="yes" sourceRef="Gateway_04a2as3" targetRef="Activity_1riynlt">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${OutputExperience}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_19ad7ym" name="no" sourceRef="Gateway_04a2as3" targetRef="Activity_116qc6p">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!OutputExperience}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1h2ri48" sourceRef="Activity_116qc6p" targetRef="Event_1ba9uew" />
-    <bpmn:textAnnotation id="TextAnnotation_0e7sfor">
-      <bpmn:text>use a form to make selection</bpmn:text>
-    </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_13zfa8h">
       <bpmn:text>only use experience as input value; if experience below 3 years, reject, if above continue</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0dhssgj" sourceRef="Activity_1potnbp" targetRef="TextAnnotation_0e7sfor" />
     <bpmn:association id="Association_0z94mhh" sourceRef="Activity_1gkfdhz" targetRef="TextAnnotation_13zfa8h" />
+    <bpmn:textAnnotation id="TextAnnotation_0e7sfor">
+      <bpmn:text>use a form to make selection: radio button</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0dhssgj" sourceRef="Activity_1potnbp" targetRef="TextAnnotation_0e7sfor" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1excpi3">
@@ -389,11 +382,11 @@ out = JSON.stringify({
       <bpmndi:BPMNShape id="Participant_1kwhahj_di" bpmnElement="Participant_1kwhahj" isHorizontal="true">
         <dc:Bounds x="160" y="1240" width="1460" height="660" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0e7sfor_di" bpmnElement="TextAnnotation_0e7sfor">
-        <dc:Bounds x="880" y="1460" width="100" height="41" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_13zfa8h_di" bpmnElement="TextAnnotation_13zfa8h">
         <dc:Bounds x="380" y="1400" width="100" height="110" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0e7sfor_di" bpmnElement="TextAnnotation_0e7sfor">
+        <dc:Bounds x="890" y="1460" width="99.99274099883856" height="53.426248548199766" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1y0evmu_di" bpmnElement="Flow_1y0evmu">
         <di:waypoint x="750" y="1580" />
@@ -416,10 +409,6 @@ out = JSON.stringify({
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1075" y="1562" width="17" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0yzua73_di" bpmnElement="Flow_0yzua73">
-        <di:waypoint x="1070" y="1710" />
-        <di:waypoint x="1122" y="1710" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13nh1a2_di" bpmnElement="Flow_13nh1a2">
         <di:waypoint x="1220" y="1580" />
@@ -446,15 +435,15 @@ out = JSON.stringify({
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_19ad7ym_di" bpmnElement="Flow_19ad7ym">
         <di:waypoint x="560" y="1605" />
-        <di:waypoint x="560" y="1700" />
-        <di:waypoint x="650" y="1700" />
+        <di:waypoint x="560" y="1720" />
+        <di:waypoint x="970" y="1720" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="569" y="1651" width="13" height="14" />
+          <dc:Bounds x="569" y="1662" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1h2ri48_di" bpmnElement="Flow_1h2ri48">
-        <di:waypoint x="750" y="1690" />
-        <di:waypoint x="802" y="1690" />
+        <di:waypoint x="1070" y="1710" />
+        <di:waypoint x="1132" y="1710" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_17m5lm3_di" bpmnElement="Activity_1potnbp">
         <dc:Bounds x="820" y="1540" width="100" height="80" />
@@ -470,12 +459,6 @@ out = JSON.stringify({
         <bpmndi:BPMNLabel>
           <dc:Bounds x="996" y="1531" width="48" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1mx6f8q_di" bpmnElement="Activity_1mx6f8q">
-        <dc:Bounds x="970" y="1670" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1em3ipr_di" bpmnElement="Event_1em3ipr">
-        <dc:Bounds x="1122" y="1692" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0o2xi9r_di" bpmnElement="Activity_1lg8l9l">
         <dc:Bounds x="1120" y="1540" width="100" height="80" />
@@ -502,18 +485,18 @@ out = JSON.stringify({
         <dc:Bounds x="650" y="1540" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_116qc6p_di" bpmnElement="Activity_116qc6p">
-        <dc:Bounds x="650" y="1650" width="100" height="80" />
+        <dc:Bounds x="970" y="1670" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1ba9uew_di" bpmnElement="Event_1ba9uew">
-        <dc:Bounds x="802" y="1672" width="36" height="36" />
+        <dc:Bounds x="1132" y="1692" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0dhssgj_di" bpmnElement="Association_0dhssgj">
-        <di:waypoint x="894" y="1540" />
-        <di:waypoint x="918" y="1501" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0z94mhh_di" bpmnElement="Association_0z94mhh">
         <di:waypoint x="420" y="1540" />
         <di:waypoint x="430" y="1510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0dhssgj_di" bpmnElement="Association_0dhssgj">
+        <di:waypoint x="900" y="1540" />
+        <di:waypoint x="920" y="1513" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0283qpl_di" bpmnElement="TextAnnotation_0283qpl">
         <dc:Bounds x="670" y="100" width="515" height="109" />
