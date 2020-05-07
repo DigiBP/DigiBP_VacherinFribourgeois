@@ -70,6 +70,10 @@
               <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
     "Experience": Experience, 
 });</camunda:script>
+"Price": execution.getVariable("Price"), 
+"Email": execution.getVariable("Email")
+});
+</camunda:script>
             </camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
