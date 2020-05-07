@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0wevma3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
+  <bpmn:collaboration id="Collaboration_1excpi3">
+    <bpmn:participant id="Participant_1pfq9rc" name="Supplier Selection Process" processRef="Process_0y9gqot" />
+    <bpmn:participant id="Participant_030vo72" name="Suppliers" />
+    <bpmn:textAnnotation id="TextAnnotation_0283qpl">
+      <bpmn:text>Form to be filled:
+- email address of supplier
+- requirements (must/nice to have)
+- timeline/deadline
+- industry experience
+- prices</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_0y9gqot" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1df6u8i">
+      <bpmn:lane id="Lane_1z0dof7" name="Purchase Requisitor" />
+      <bpmn:lane id="Lane_1wl1cz9" name="Strategic Purchaser">
+        <bpmn:flowNodeRef>Activity_12d0qj0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1c8kor8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1yiidvs</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1illu6l</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0btwqmb</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:businessRuleTask id="Activity_12d0qj0" name="Check experience of potential suppliers" camunda:resultVariable="OutputExperience" camunda:decisionRef="Decision_0l01cbh" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Experience">
+            <camunda:script scriptFormat="JavaScript">Experience = execution.getVariable('SupplierExperience');</camunda:script>
+          </camunda:inputParameter>
+          <camunda:outputParameter name="OutputExperience">${OutputExperience.score}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0nx48lj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jtk8ig</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0nx48lj" sourceRef="Event_1yiidvs" targetRef="Activity_12d0qj0" />
+    <bpmn:exclusiveGateway id="Gateway_1c8kor8" name="Enough experience?">
+      <bpmn:incoming>Flow_0jtk8ig</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bg6ilj</bpmn:outgoing>
+      <bpmn:outgoing>Flow_06tpn30</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0jtk8ig" sourceRef="Activity_12d0qj0" targetRef="Gateway_1c8kor8" />
+    <bpmn:sequenceFlow id="Flow_0bg6ilj" name="yes" sourceRef="Gateway_1c8kor8" targetRef="Activity_0btwqmb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${OutputExperience}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_06tpn30" name="no" sourceRef="Gateway_1c8kor8" targetRef="Activity_1illu6l">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!OutputExperience}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:startEvent id="Event_1yiidvs">
+      <bpmn:outgoing>Flow_0nx48lj</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0liutsk" messageRef="Message_12rv16g" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1illu6l" name="Reject offer">
+      <bpmn:incoming>Flow_06tpn30</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_0btwqmb" name="Show responses">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/scdb98c89j7saqx7nc178jhchh3xdbl6</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+    "Experience": Experience
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0bg6ilj</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:textAnnotation id="TextAnnotation_1fwgcaj">
+      <bpmn:text>only use experience as input value; if experience below 3 years, reject, if above continue</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_146kca5" sourceRef="Activity_12d0qj0" targetRef="TextAnnotation_1fwgcaj" />
+  </bpmn:process>
+  <bpmn:message id="Message_0ryqwrr" name="PurchasingRequestArised" />
+  <bpmn:message id="Message_0fnyq6q" name="Message_233d2uk" />
+  <bpmn:message id="Message_12rv16g" name="SupplierEmailArised" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1excpi3">
+      <bpmndi:BPMNShape id="Participant_1pfq9rc_di" bpmnElement="Participant_1pfq9rc" isHorizontal="true">
+        <dc:Bounds x="129" y="330" width="3151" height="880" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1wl1cz9_di" bpmnElement="Lane_1wl1cz9" isHorizontal="true">
+        <dc:Bounds x="159" y="330" width="3121" height="520" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1z0dof7_di" bpmnElement="Lane_1z0dof7" isHorizontal="true">
+        <dc:Bounds x="159" y="850" width="3121" height="360" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0nx48lj_di" bpmnElement="Flow_0nx48lj">
+        <di:waypoint x="1298" y="620" />
+        <di:waypoint x="1510" y="620" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jtk8ig_di" bpmnElement="Flow_0jtk8ig">
+        <di:waypoint x="1610" y="620" />
+        <di:waypoint x="1675" y="620" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bg6ilj_di" bpmnElement="Flow_0bg6ilj">
+        <di:waypoint x="1725" y="620" />
+        <di:waypoint x="1790" y="620" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1749" y="602" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06tpn30_di" bpmnElement="Flow_06tpn30">
+        <di:waypoint x="1700" y="645" />
+        <di:waypoint x="1700" y="730" />
+        <di:waypoint x="1790" y="730" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1709" y="685" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0ngdqp5_di" bpmnElement="Activity_12d0qj0">
+        <dc:Bounds x="1510" y="580" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1fwgcaj_di" bpmnElement="TextAnnotation_1fwgcaj">
+        <dc:Bounds x="1510" y="440" width="99.99999880417013" height="109.71786833855799" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1c8kor8_di" bpmnElement="Gateway_1c8kor8" isMarkerVisible="true">
+        <dc:Bounds x="1675" y="595" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1670" y="557.5" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_146kca5_di" bpmnElement="Association_146kca5">
+        <di:waypoint x="1560" y="580" />
+        <di:waypoint x="1560" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_15caoqu_di" bpmnElement="Participant_030vo72" isHorizontal="true">
+        <dc:Bounds x="129" y="220" width="3181" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0283qpl_di" bpmnElement="TextAnnotation_0283qpl">
+        <dc:Bounds x="1370" y="80" width="175" height="109" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lhi0eg_di" bpmnElement="Event_1yiidvs">
+        <dc:Bounds x="1262" y="602" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ll4zn5_di" bpmnElement="Activity_1illu6l">
+        <dc:Bounds x="1790" y="690" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0jelh6i_di" bpmnElement="Activity_0btwqmb">
+        <dc:Bounds x="1790" y="580" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
