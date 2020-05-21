@@ -1,14 +1,14 @@
 # Introduction
 
-We are a yacht manufacturing company and need to supply pieces for building yachts. Below the as-is supplier selection process can be seen.
+This documentation describes the digitalization of a fictional supplier selection process of a yacht manufacturing company.
+
+Below the as-is supplier selection process can be seen.
 
 <img src="C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\modelling\Supplier selection as-is_200326.svg" style="zoom:100%;" />
 
 One can see that nearly all tasks are user tasks, hence a person is involved in each step.
 
 When digitalizing the process our goal was to automate process steps and reduce user and manual tasks to the minimum. When deciding about ways to do this we focused on using all the required technologies but also on keeping a pragmatic approach while implement things as realistically as possible. This was sometimes challenging. To not blow up the scope, we excluded the proof-of concept phase in the to-be process.
-
-
 
 The final to-be process looks as following:
 
@@ -20,7 +20,7 @@ The process is split into 3 parts because the second process is is executed for 
 
 For an overview, the image below shows all Integromat scenarios which we used in the process:
 
-![image-20200521155356033](C:\Users\celia\AppData\Roaming\Typora\typora-user-images\image-20200521155356033.png)
+![]()
 
 # Process description
 
@@ -46,14 +46,15 @@ Now each step in the Camunda process is explained in the following sub-chapters.
 
 ## Purchasing requirement arised (1.1 in Integromat)
 
-The webhook in Integromat receives the data from Dialogflow and inserts it into the google sheet "PurchaseRequisition" into the columns
-
-- ComponentCategory (@ComponentCategory)
-- Requirements (@sys.any)
-- Budget (@sys.number)
-- PreferredDeliveryDate (@sys.date)
-
-Then Integromat creates a business key variable, which is also stored in a google sheet. Finally, via an HTTP request, the key-value pairs are posted to Camunda, which initiates the process.
+- Step 1: The webhook in Integromat receives the data from Dialogflow
+- Step 2: the data is inserted it into the google sheet "PurchaseRequisition" into the columns
+  - ComponentCategory (@ComponentCategory)
+  - Requirements (@sys.any)
+  - Budget (@sys.number)
+  - PreferredDeliveryDate (@sys.date)
+- Step 3: Then Integromat creates a business key variable
+- Step 4: Business key variable is stored in a google sheet
+- Step 5: Via an HTTP request, the key-value pairs are posted to Camunda, which initiates the process
 
 ![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\1.1.PNG)
 
@@ -83,9 +84,9 @@ The following Integromat scenario is triggered by Camunda. It gets the email add
 
 This is the email being sent:
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\Email invite.png)
+![]()
 
-## Simulated supplier response (2.1 in Integromat)
+## Simulated supplier response (2.1 and 2.2 in Integromat)
 
 As this is not a real-life process with actual suppliers, our suppliers responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
 
@@ -93,7 +94,24 @@ As this is not a real-life process with actual suppliers, our suppliers response
 
 So that it is possible to further process the responses by machine, the responses all have the same structure:
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\Email answer.png)
+![]()
+
+
+
+Afterwards, the needed information is extracted from the email in the following scenario. It runs every 15 minutes when turned on.
+
+
+
+![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.2.PNG)
+
+Let us explain this step-by step. Every incoming supplier response goes through this process.
+
+- Step 1: Email is being fetched and marked as read in the inbox
+- *Step 2: Reset a value (Never) ??*
+- Step 3-6: By the means of Regex expressions we extract **price** and **experience**
+- Step 7-8: **price** and **experience** are put into variables.
+- Step 9: The **business key** is being read from the corresponding Google sheet
+- Step 10: email address, price, experience and business key are sent to the Camunda process via an HTTP POST request 
 
 ## Check industry experience of potential suppliers
 
@@ -101,16 +119,26 @@ To evaluate, whether the supplier is suitable for us, we first want to check the
 
 ![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\DMN shortlist.png)
 
-If the supplier has less than 3 years experience, he is automatically rejected in the step "Reject supplier via email"
+
 
 ## Reject supplier via email (Integromat 2.4)
 
-
+If the supplier has less than 3 years experience, he is automatically rejected. The process accesses the following Integromat scenario, where an email with rejection notice is sent to the supplier.
 
 ![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.4.PNG)
 
 
 
+![]()
+
 ## Show responses (Integromat 2.3)
 
+If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message and put into the Google sheet "SupplierResponse". Additionally, the time stamp is stored in another column.
+
+
+
 ![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.3.PNG)
+
+
+
+![]()
