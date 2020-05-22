@@ -108,7 +108,7 @@ wheel, sails, mast, railing, wood, ropes</bpmn:text>
   </bpmn:process>
   <bpmn:message id="Message_0ryqwrr" name="PurchasingRequestArised" />
   <bpmn:message id="Message_0z8nqmv" name="SupplierEmailArised" />
-  <bpmn:process id="Process_18hb94t" isExecutable="false">
+  <bpmn:process id="Process_18hb94t" isExecutable="true">
     <bpmn:businessRuleTask id="Activity_1gkfdhz" name="Check experience of potential suppliers" camunda:resultVariable="OutputExperience" camunda:decisionRef="Decision_0l01cbh" camunda:mapDecisionResult="singleResult">
       <bpmn:extensionElements>
         <camunda:inputOutput>
