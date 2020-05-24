@@ -24,13 +24,13 @@
       <output id="OutputClause_1kbs8qj" label="preferred supplier" name="preferredSupplier" typeRef="string" />
       <rule id="DecisionRule_0gltuvc">
         <inputEntry id="UnaryTests_0lhpcuj">
-          <text>"sails"</text>
+          <text>"sail"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0w9qqrv">
-          <text>true</text>
+          <text>false</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1whlyyy">
-          <text>"Sails Corp."</text>
+          <text></text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0dcojp5">
