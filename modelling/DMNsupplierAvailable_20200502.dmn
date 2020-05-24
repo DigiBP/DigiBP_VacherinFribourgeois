@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1vvtrhh" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.0">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1vvtrhh" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
   <decision id="Decision_1j2wrna" name="supplier available">
     <extensionElements>
       <biodi:bounds x="150" y="150" width="180" height="80" />
@@ -21,12 +21,16 @@
         </inputValues>
       </input>
       <output id="output_1" label="availability" name="availability" typeRef="boolean" />
+      <output id="OutputClause_1kbs8qj" label="preferred supplier" name="preferredSupplier" typeRef="string" />
       <rule id="DecisionRule_0gltuvc">
         <inputEntry id="UnaryTests_0lhpcuj">
           <text>"sails"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0w9qqrv">
           <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1whlyyy">
+          <text>"Sails Corp."</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0dcojp5">
@@ -36,6 +40,9 @@
         <outputEntry id="LiteralExpression_16m40ij">
           <text>true</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_07grnqc">
+          <text>"Custom Ship Masts Inc."</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1wt55x5">
         <inputEntry id="UnaryTests_0ot7lb2">
@@ -43,6 +50,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_0jfpbcq">
           <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ltyz7h">
+          <text>"Metal Rails GmbH"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1gtoajo">
@@ -52,6 +62,9 @@
         <outputEntry id="LiteralExpression_1vx3sah">
           <text>true</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_02dtdee">
+          <text>"Precious Woods AG"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0a7dswt">
         <inputEntry id="UnaryTests_0m9mgft">
@@ -59,6 +72,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_0h7o0ir">
           <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1aofuxy">
+          <text>"Strong Ropes Thun"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0tmnmm6">
@@ -68,6 +84,9 @@
         <outputEntry id="LiteralExpression_1h69ncn">
           <text>false</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_1da2tf9">
+          <text></text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0d1km34">
         <inputEntry id="UnaryTests_0g2jexh">
@@ -75,6 +94,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_0i1j7vx">
           <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o9b4xc">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
