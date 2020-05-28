@@ -123,7 +123,7 @@
       <bpmn:incoming>Flow_01jyu4k</bpmn:incoming>
       <bpmn:outgoing>Flow_0uktble</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_14cxly3" name="Identify suppliers" camunda:candidateGroups="strategicPurchasing">
+    <bpmn:userTask id="Activity_14cxly3" name="Identify suppliers" camunda:assignee="meier">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="readRequirements">
