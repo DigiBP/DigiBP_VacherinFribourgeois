@@ -156,7 +156,9 @@ The data is filled in the excel as follows:
 
 <img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.3%20excel.PNG?raw=true" align="center">
 
---> To be updated!!! --> check with Heiko/Stefan --> where are the shortlisted suppliers? 
+--> To be updated!!! --> check with Heiko/Stefan --> where are the shortlisted suppliers? --> Include also with business key. 
+
+--> Integromat process steps described separately.
 
 Hereby, the second process is completed with "Supplier responses collected". 
 
