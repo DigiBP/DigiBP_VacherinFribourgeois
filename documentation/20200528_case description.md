@@ -44,7 +44,7 @@ The following image shows the parameters used:
 
 Now each step in the Camunda process is explained in the following sub-chapters. The titles refer to the task in the Camunda process.
 
-## Purchasing requirement arised (1.1 in Integromat)
+## Purchasing requirement arised (Integromat 1.1)
 
 - Step 1: The webhook in Integromat receives the data from Dialogflow
 - Step 2: the data is inserted it into the google sheet "PurchaseRequisition" into the columns
@@ -76,7 +76,7 @@ In this process step, the preferred supplier from the decision table output and 
 
 Via a common Google search, the strategic purchaser looks for potential suppliers. She/he enters the email addresses to contact the suppliers into a Google sheet named "supplierEmail". For simplification purpose for the testing, this step was already done including 3 fictious email addresses - from suppliers Fritz, Hans and Lisa. Hereby the first process is finished with "Supplier defined". 
 
-## Send request for information (1.2 in Integromat)
+## Send request for information (Integromat 1.2)
 
 The following Integromat scenario is triggered by Camunda. It gets the email address from the sheet "supplierEmail" and the component category, requirements and preferred delivery date from the sheet "PurchaseRequisition". This information is placed into an email and which is sent to the potential suppliers. Our strategic purchaser is called Laurin and he has a Gmail account with the address buyer.laurin@gmail.com. The emails are being sent from this account to the suppliers Fritz, Hans and Lisa. 
 
@@ -90,7 +90,7 @@ This is the email being sent:
 
 Hereby the first process is finished with "Supplier identified". 
 
-## Simulated supplier response (2.1 and 2.2 in Integromat)
+## Simulated supplier response (Integromat 2.1 and 2.2)
 
 As this is not a real-life process with actual suppliers, our suppliers responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
 
@@ -136,29 +136,23 @@ If the supplier has less than 3 years experience, he is automatically rejected. 
 
 The supplier is rejected with the following message:
 
-
-
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.4%20message.PNG?raw=true)
 
 Hereby, the second process is completed with "Supplier rejected". 
 
 ## List responses (Integromat 2.3)
 
-If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message and put into the Google sheet "supplierResponse", second sheet "Shortlist". Additionally, the **time stamp** and **business key** are stored in another column in the Google sheet "supplierResponse", second sheet "Shortlist". 
+If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message. The **business key** is taken from the respective Google sheet and all variables are put into the Google sheet "supplierResponse", second sheet "Shortlist". Additionally, the **time stamp**, is stored in an additional column. 
+
+At the end, the third Camunda process is initiated by the HTTP POST request by sending the process name and business in JSON format.
 
 
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.3.PNG?raw=true)
 
-The data is filled in the excel as follows:
-
-
+The data is filled in the Google sheet as follows:
 
 <img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.3%20excel.PNG?raw=true" align="center">
-
---> To be updated!!! --> check with Heiko/Stefan --> where are the shortlisted suppliers? --> Include also with business key. 
-
---> Integromat process steps described separately.
 
 Hereby, the second process is completed with "Supplier responses collected". 
 
@@ -166,7 +160,7 @@ Hereby, the second process is completed with "Supplier responses collected".
 
 As the pricing varies from tender to tender and the best supplier selection depends on the **price** and **industry  experience** combination, the best supplier selection remains a user task. The user chooses the best combination of **price** and **industry experience** from the Google sheet "supplierResponse", sheet "Shortlist". The selected best supplier email address is inserted to the form field "selectedEmail" in Camunda. 
 
---> How to insert images? Heroku-image
+--> insert Heroku-image
 
 ## Invite supplier for contract negotiation via email and reject other suppliers (Integromat 3.1)
 
@@ -178,6 +172,4 @@ If the supplier was selected as best supplier in the previous step, the invitati
 
 The contract terms are being negotiated with the best selected supplier in a manual task. This is the final task of the supplier selection process. 
 
-The final process finishes with "Supplier selected". 
-
--
+The process finishes with "Supplier selected". 
