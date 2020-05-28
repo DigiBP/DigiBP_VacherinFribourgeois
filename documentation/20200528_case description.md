@@ -144,7 +144,6 @@ Hereby, the second process is completed with "Supplier rejected".
 
 If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message. The **business key** is taken from the respective Google sheet and all variables are put into the Google sheet "supplierResponse", second sheet "Shortlist". Additionally, the **time stamp**, is stored in an additional column. 
 
-At the end, the third Camunda process is initiated by the HTTP POST request by sending the process name and business in JSON format.
 
 
 
