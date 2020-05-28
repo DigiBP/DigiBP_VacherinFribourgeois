@@ -4,7 +4,9 @@ This documentation describes the digitalization of a fictional supplier selectio
 
 Below the as-is supplier selection process can be seen.
 
-<img src="C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\modelling\Supplier selection as-is_200326.svg" style="zoom:100%;" />
+
+
+![]()
 
 One can see that nearly all tasks are user tasks, hence a person is involved in each step.
 
@@ -12,7 +14,7 @@ When digitalizing the process our goal was to automate process steps and reduce 
 
 The final to-be process looks as following:
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\modelling\Supplier selection to-be_200521.svg)
+![]()
 
 
 
@@ -20,7 +22,7 @@ The process is split into 3 parts because the second process is is executed for 
 
 For an overview, the image below shows all Integromat scenarios which we used in the process:
 
-![]()
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Integromat%20Overview.png?raw=true)
 
 # Process description
 
@@ -28,7 +30,7 @@ For an overview, the image below shows all Integromat scenarios which we used in
 
 The process starts with a chatbot. 
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\Dialogflow PurchaseRequisisitionService.png)
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Dialogflow%20PurchaseRequisisitionService.png?raw=true">
 
 
 
@@ -36,11 +38,11 @@ The user is being asked for the product he wants to order, the requirements, the
 
 In the screenshot below, the training phrases of the chatbot are visible:
 
-![image-20200521141934442](C:\Users\celia\AppData\Roaming\Typora\typora-user-images\image-20200521141934442.png)
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Training%20phrases.png?raw=true">
 
 The following image shows the parameters used:
 
-![image-20200521142106018](C:\Users\celia\AppData\Roaming\Typora\typora-user-images\image-20200521142106018.png)
+<img src="https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Dialogflow%20parameters.png?raw=true">
 
 Now each step in the Camunda process is explained in the following sub-chapters. The titles refer to the task in the Camunda process.
 
@@ -56,13 +58,13 @@ Now each step in the Camunda process is explained in the following sub-chapters.
 - Step 4: Business key variable is stored in a google sheet
 - Step 5: Via an HTTP request, the key-value pairs are posted to Camunda, which initiates the process
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\1.1.PNG)
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/1.1.PNG?raw=true">
 
 ## Check if preferred supplier is available
 
 This task checks, whether there is an existing preferred supplier for the specified product category, received in the previous step. The variable componentCategory is injected into the decision table.  
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\DMN supplier available.png)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/DMN%20supplier%20available.png?raw=true)
 
 If the component category is for example, sails, mast or wood, it results in true, meaning we already have a preferred supplier. This leads to the next task "Use existing supplier". If there is no existing preferred supplier, for example for wheels or everything else, the process goes on to "Identify supplier".
 
@@ -78,23 +80,23 @@ Via a common Google search, the strategic purchaser looks for potential supplier
 
 The following Integromat scenario is triggered by Camunda. It gets the email address from the sheet "supplierEmail" and the component category, requirements and preferred delivery date from the sheet "ProductRequirements". This information is placed into an email and which is sent to the potential supplier. Our strategic purchaser is called Laurin and he has a Gmail account with the address buyer.laurin@gmail.com. The emails are being sent from this account.
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\1.2.PNG)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/1.2.PNG?raw=true)
 
 
 
 This is the email being sent:
 
-![]()
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/1.2%20message.png?raw=true">
 
 ## Simulated supplier response (2.1 and 2.2 in Integromat)
 
 As this is not a real-life process with actual suppliers, our suppliers responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.1.PNG)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.1.PNG?raw=true)
 
 So that it is possible to further process the responses by machine, the responses all have the same structure:
 
-![]()
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.1%20message.png?raw=true)
 
 
 
@@ -102,7 +104,7 @@ This could also be achieved in an actual case by providing a template for the Rf
 
 
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.2.PNG)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.2.PNG?raw=true)
 
 Let us explain this step-by step. Every incoming supplier response goes through this process.
 
@@ -117,7 +119,7 @@ Let us explain this step-by step. Every incoming supplier response goes through 
 
 To evaluate, whether the supplier is suitable for us, we first want to check the industry experience. This is important because we want our suppliers have experience in delivering the high quality and safe products  a yacht needs. We demand a minimum experience of 3 years.
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\DMN shortlist.png)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/DMN%20shortlist.png?raw=true)
 
 
 
@@ -125,11 +127,17 @@ To evaluate, whether the supplier is suitable for us, we first want to check the
 
 If the supplier has less than 3 years experience, he is automatically rejected. The process accesses the following Integromat scenario, where an email with rejection notice is sent to the supplier.
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.4.PNG)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.4.PNG?raw=true)
 
 
 
-![]()
+The supplier is reject with the following message:
+
+
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.4%20message.PNG?raw=true)
+
+
 
 ## Show responses (Integromat 2.3)
 
@@ -137,11 +145,15 @@ If the supplier has 3 or more years of industry experience, then **email address
 
 
 
-![](C:\Users\celia\OneDrive\Dokumente\01_FHNW\Semester 4\DigiBP\Repository Group Work\DigiBP_VacherinFribourgeois\documentation\pictures\2.3.PNG)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.3.PNG?raw=true)
+
+The data is filled in the excel as follows:
 
 
 
-![]()
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.3%20excel.PNG?raw=true" align="center">
+
+
 
 ## Select best supplier
 
