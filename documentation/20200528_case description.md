@@ -12,11 +12,11 @@ When digitalizing the process our goal was to automate process steps and reduce 
 
 The final to-be process looks as following:
 
-![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/fc334f1f2138383b4dabd163dbfb9490e47faf14/documentation/pictures/Supplier%20selection%20to-be_200528.svg)
+![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/f9fdd23439cee49da05be3f62ebc365375c7e332/documentation/pictures/Supplier%20selection%20to-be_200528.svg)
 
 
 
-The process is split into 3 parts because the second process is is executed for each supplier response, while the first and the third part are only executed once per purchasing request. Additionally, this approach represents the microservices approach, which allows processes to be reused in other processes. 
+The process is split into 2 parts because the second process is is executed for each supplier response, while the first part is only executed once per purchasing request. Additionally, this approach represents the microservices approach, which allows processes to be reused in other processes. 
 
 For an overview, the image below shows all Integromat scenarios which we used in the process:
 
@@ -47,12 +47,12 @@ Now each step in the Camunda process is explained in the following sub-chapters.
 ## Purchasing requirement arised (Integromat 1.1)
 
 - Step 1: The webhook in Integromat receives the data from Dialogflow
-- Step 2: the data is inserted it into the google sheet "PurchaseRequisition" into the columns
+- Step 2: the data is inserted it into the Google sheet "PurchaseRequisition" into the columns
   - ComponentCategory (@ComponentCategory)
   - Requirements (@sys.any)
   - Budget (@sys.number)
   - PreferredDeliveryDate (@sys.date)
-- Step 3: Then Integromat creates a business key variable
+- Step 3: Integromat creates a business key variable
 - Step 4: Business key variable is stored in a Google sheet
 - Step 5: Via an HTTP request, the key-value pairs are posted to Camunda, which initiates the process
 
@@ -172,3 +172,9 @@ If the supplier was selected as best supplier in the previous step, the invitati
 The contract terms are being negotiated with the best selected supplier in a manual task. This is the final task of the supplier selection process. 
 
 The process finishes with "Supplier selected". 
+
+# User Management in Camunda
+
+In Camunda we created a group of two strategic purchasers "strategicPurchasing", which includes the users Max Meier and Lihong Wang. All user tasks in our process can be claimed by the group "StrategicPurchasing".
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/UserTasks.PNG?raw=true)
