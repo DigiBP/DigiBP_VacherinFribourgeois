@@ -12,7 +12,7 @@ When digitalizing the process our goal was to automate process steps and reduce 
 
 The final to-be process looks as following:
 
-![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/fc334f1f2138383b4dabd163dbfb9490e47faf14/documentation/pictures/Supplier%20selection%20to-be_200527.svg)
+![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/fc334f1f2138383b4dabd163dbfb9490e47faf14/documentation/pictures/Supplier%20selection%20to-be_200528.svg)
 
 
 
@@ -28,7 +28,7 @@ For an overview, the image below shows all Integromat scenarios which we used in
 
 The process starts with a chatbot. 
 
-<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Dialogflow%20PurchaseRequisisitionService.png?raw=true">
+<img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/videos/screen-video-chatbot.gif?raw=true">
 
 
 
