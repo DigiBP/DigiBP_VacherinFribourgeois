@@ -90,11 +90,11 @@ This is the email being sent:
 
 At the end the date/time, when the email was sent, is stored in a variable and saved in the Google sheet "supplierEmail".
 
-Afterwards the system waits for seven days (technically 2 minutes). During the seven days the suppliers have time to 
+Afterwards the system waits for seven days (technically 2 minutes). During the seven days the suppliers have time to send their offer. This allows the suppliers enough time to make a good proposal and is common industry practice.
 
 ## Simulated supplier response (Integromat 2.1 and 2.2)
 
-As this is not a real-life process with actual suppliers, our suppliers responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
+As this is not a real-life process with actual suppliers, our supplier responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.1.PNG?raw=true)
 
@@ -104,7 +104,7 @@ So that it is possible to further process the responses by machine, the response
 
 
 
-This could also be achieved in an actual case by providing a template for the RfX response. Afterwards, the needed information is extracted from the email in the following scenario. It runs every 15 minutes when turned on.
+This could also be achieved in an actual case by providing a template for the RFI response. Afterwards, the needed information is extracted from the email in the following scenario. It runs every 15 minutes when turned on.
 
 
 
@@ -113,8 +113,8 @@ This could also be achieved in an actual case by providing a template for the Rf
 Let us explain this step-by step. Every incoming supplier response goes through this process.
 
 - Step 1: Email is being fetched and marked as read in the inbox
-- Step 2:
-- Step 3:
+- Step 2: The **emailDate** (send date), is extracted from the Google sheet "supplierEmail"
+- Step 3: 
 - Step 5-8: By the means of Regex expressions we extract **price** and **experience**
 - Step 5b:
 - Step 9-10: **price** and **experience** are put into variables.
