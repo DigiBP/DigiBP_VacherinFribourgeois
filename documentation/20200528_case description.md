@@ -58,7 +58,7 @@ Now each step in the Camunda process is explained in the following sub-chapters.
 
 <img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/1.1.PNG?raw=true">
 
-## Check if preferred supplier is available
+## Check if preferred supplier is defined
 
 This task checks, whether there is an existing preferred supplier for the specified product category, received in the previous step. The variable componentCategory is injected into the decision table.  
 
@@ -88,7 +88,9 @@ This is the email being sent:
 
 <img src = "https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/1.2%20message.png?raw=true">
 
-Hereby the first process is finished with "Supplier identified". 
+At the end the date/time, when the email was sent, is stored in a variable and saved in the Google sheet "supplierEmail".
+
+Afterwards the system waits for seven days (technically 2 minutes). During the seven days the suppliers have time to 
 
 ## Simulated supplier response (Integromat 2.1 and 2.2)
 
@@ -111,12 +113,13 @@ This could also be achieved in an actual case by providing a template for the Rf
 Let us explain this step-by step. Every incoming supplier response goes through this process.
 
 - Step 1: Email is being fetched and marked as read in the inbox
-- *Step 2: Reset a value (Never) ??*
-- Step 3-6: By the means of Regex expressions we extract **price** and **experience**
-- Step 7-8: **price** and **experience** are put into variables.
-- Step 9: The **business key** is being read from the corresponding Google sheet
-- Step 10: email address, price, experience and business key are sent to the Camunda process via an HTTP POST request 
-- --> To be extended!!!
+- Step 2:
+- Step 3:
+- Step 5-8: By the means of Regex expressions we extract **price** and **experience**
+- Step 5b:
+- Step 9-10: **price** and **experience** are put into variables.
+- Step 11: The **business key** is being read from the corresponding Google sheet
+- Step 12: email address, price, experience and business key are sent to the Camunda process via an HTTP POST request 
 
 ## Check industry experience of potential suppliers
 
@@ -159,7 +162,7 @@ Hereby, the second process is completed with "Supplier responses collected".
 
 As the pricing varies from tender to tender and the best supplier selection depends on the **price** and **industry  experience** combination, the best supplier selection remains a user task. The user chooses the best combination of **price** and **industry experience** from the Google sheet "supplierResponse", sheet "Shortlist". The selected best supplier email address is inserted to the form field "selectedEmail" in Camunda. 
 
---> insert Heroku-image
+--> insert Heroku-image and Excel image
 
 ## Invite supplier for contract negotiation via email and reject other suppliers (Integromat 3.1)
 
