@@ -92,7 +92,7 @@ At the end the date/time, when the email was sent, is stored in a variable and s
 
 Afterwards the system waits for seven days (technically 2 minutes). During the seven days the suppliers have time to send their offer. This allows the suppliers enough time to make a good proposal and is common industry practice.
 
-## Simulated supplier response (Integromat 2.1 and 2.2)
+## Response received (Integromat 2.1 and 2.2)
 
 As this is not a real-life process with actual suppliers, our supplier responses need to be simulated. For this purpose we created another Integromat scenario, where our virtual suppliers Fritz, Hans and Lisa make an offer via email. The scenario needs to be executed manually. Again, strategic purchaser Laurin receives the responses.
 
@@ -113,15 +113,26 @@ This could also be achieved in an actual case by providing a template for the RF
 Let us explain this step-by step. Every incoming supplier response goes through this process.
 
 - Step 1: Email is being fetched and marked as read in the inbox
-- Step 2: The **emailDate** (send date), is extracted from the Google sheet "supplierEmail"
-- Step 3: 
-- Step 5-8: By the means of Regex expressions we extract **price** and **experience**
-- Step 5b:
-- Step 9-10: **price** and **experience** are put into variables.
-- Step 11: The **business key** is being read from the corresponding Google sheet
-- Step 12: email address, price, experience and business key are sent to the Camunda process via an HTTP POST request 
 
-## Check industry experience of potential suppliers
+- Step 2: The **emailDate** (send date), is extracted from the Google sheet "supplierEmail"
+
+- Step 3: The difference between the dates of the RFI request and the response of the supplier is calculated. It should be less than 7 days.
+
+    ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.2%20datediff.PNG?raw=true)
+
+- Step 4: The router forks the process
+
+- Step 5-8: If the response came on time, we extract **price** and **experience** by the means of Regex expressions
+
+- Step 5b: If the answer came too late, the supplier receives a rejection email.
+
+- Step 9-10: **price** and **experience** are put into variables.
+
+- Step 11: The **business key** is being read from the corresponding Google sheet
+
+- Step 12: **email address**, **price**, **experience** and **business key** are sent to the Camunda process via an HTTP POST request 
+
+## Check experience of potential suppliers
 
 To evaluate, whether the supplier is suitable for us, we first want to check the industry experience. This is important because we want our suppliers to have experience in delivering the high quality and safe products  a yacht needs. We demand a minimum experience of 3 years.
 
