@@ -171,13 +171,21 @@ Hereby, the second process is completed with "Supplier responses collected".
 
 ## Select best supplier
 
-As the pricing varies from tender to tender and the best supplier selection depends on the **price** and **industry  experience** combination, the best supplier selection remains a user task. The user chooses the best combination of **price** and **industry experience** from the Google sheet "supplierResponse", sheet "Shortlist". The selected best supplier email address is inserted to the form field "selectedEmail" in Camunda. 
+As the pricing varies from tender to tender and the best supplier selection depends on the **price** and **industry  experience** combination, the best supplier selection remains a user task. The user chooses the best combination of **price** and **industry experience** from the Google sheet "supplierResponse", sheet "Shortlist".
 
---> insert Heroku-image and Excel image
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Supplier%20response_Google%20Sheets.png?raw=true)
+
+The selected best supplier email address is inserted to the form field "selectedEmail" in Camunda. 
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Select%20best%20supplier_Heroku.png?raw=true)
 
 ## Invite supplier for contract negotiation via email and reject other suppliers (Integromat 3.1)
 
 If the supplier was selected as best supplier in the previous step, the invitation for contract negotiation is sent via Integromat. If the supplier was not awarded best supplier, an offer rejected email is being generated via Integromat. 
+
+
+
+
 
 ![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/master/documentation/pictures/3.1.PNG)
 
@@ -189,6 +197,27 @@ The process finishes with "Supplier selected".
 
 # User Management in Camunda
 
-In Camunda we created a group of two strategic purchasers "strategicPurchasing", which includes the users Max Meier and Lihong Wang. All user tasks in our process can be claimed by the group "StrategicPurchasing".
+In Camunda we created a group of two strategic purchasers "strategicPurchasing", which includes the users Max Meier and Lihong Wang. All user tasks in our process can be claimed by the group "StrategicPurchasing". 
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/UserTasks.PNG?raw=true)
+
+The users are given the respective authorizations.
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Camunda%20authorizations.PNG?raw=true)
+
+# Process Mining
+
+## Disco
+
+To process the log data in the process mining application Disco, it needs to be extracted from the API and transformed into the right format. This is done in the following Integromat scenario.
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/5%20getlogfile.PNG?raw=true)
+
+sdjfsah
+
+## Power BI
+
+Power BI accesses the proccess log via API from Camunda.
+
+
+
