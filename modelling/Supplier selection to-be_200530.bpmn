@@ -6,54 +6,54 @@
     <bpmn:participant id="Participant_10j0wq1" name="Purchase Requisitor" />
     <bpmn:participant id="Participant_1kwhahj" name="Supplier Responses Service" processRef="Process_18hb94t" />
     <bpmn:participant id="Participant_059edy2" name="Suppliers" />
-    <bpmn:messageFlow id="MessageFlow_1vinbwo" sourceRef="Participant_10j0wq1" targetRef="Event_0u7ckkv" />
-    <bpmn:messageFlow id="MessageFlow_01liuxr" sourceRef="Activity_13h7t2e" targetRef="Participant_030vo72" />
-    <bpmn:messageFlow id="MessageFlow_1lj3y7t" sourceRef="Participant_030vo72" targetRef="Activity_1b0c8hg" />
-    <bpmn:messageFlow id="MessageFlow_01xv33t" sourceRef="Participant_059edy2" targetRef="Event_1xzi40e" />
-    <bpmn:messageFlow id="MessageFlow_0dfwjnc" sourceRef="Activity_116qc6p" targetRef="Participant_059edy2" />
-    <bpmn:messageFlow id="MessageFlow_1l5n98e" sourceRef="Activity_0yl1t98" targetRef="Participant_030vo72" />
-    <bpmn:messageFlow id="MessageFlow_14m190k" sourceRef="Activity_1b0c8hg" targetRef="Participant_030vo72" />
+    <bpmn:messageFlow id="MessageFlow_1vinbwo" sourceRef="Participant_10j0wq1" targetRef="StartEvent_PRarised" />
+    <bpmn:messageFlow id="MessageFlow_01liuxr" sourceRef="Service_sendRFI" targetRef="Participant_030vo72" />
+    <bpmn:messageFlow id="MessageFlow_1lj3y7t" sourceRef="Participant_030vo72" targetRef="Manual_negotiateTerms" />
+    <bpmn:messageFlow id="MessageFlow_01xv33t" sourceRef="Participant_059edy2" targetRef="StartEvent_responseReceived" />
+    <bpmn:messageFlow id="MessageFlow_0dfwjnc" sourceRef="Service_rejectSupplier" targetRef="Participant_059edy2" />
+    <bpmn:messageFlow id="MessageFlow_1l5n98e" sourceRef="Service_inviteAndReject" targetRef="Participant_030vo72" />
+    <bpmn:messageFlow id="MessageFlow_14m190k" sourceRef="Manual_negotiateTerms" targetRef="Participant_030vo72" />
   </bpmn:collaboration>
   <bpmn:process id="Process_0y9gqot" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1df6u8i">
       <bpmn:lane id="Lane_1wl1cz9">
-        <bpmn:flowNodeRef>Event_0u7ckkv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_17ocfqj</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_10o3hv1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_14cxly3</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_13h7t2e</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_07xslqd</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0yl1t98</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1b0c8hg</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_19x59ft</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1xhnbiv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1b06a2t</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_PRarised</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>DMN_supplierDefined</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_supplierDefined</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_identifySupplier</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Service_sendRFI</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_selectSupplier</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Service_inviteAndReject</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Manual_negotiateTerms</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_supplierSelected</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_showSupplier</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Timer_awaitResponses</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:sequenceFlow id="Flow_1pcy9k0" sourceRef="Activity_1xhnbiv" targetRef="Event_19x59ft" />
-    <bpmn:sequenceFlow id="Flow_0uktble" sourceRef="Activity_13h7t2e" targetRef="Event_1b06a2t" />
-    <bpmn:sequenceFlow id="Flow_0rbq71y" sourceRef="Event_0u7ckkv" targetRef="Activity_17ocfqj" />
-    <bpmn:sequenceFlow id="Flow_13ri5k9" sourceRef="Activity_17ocfqj" targetRef="Gateway_10o3hv1" />
-    <bpmn:sequenceFlow id="Flow_199o5cl" name="yes" sourceRef="Gateway_10o3hv1" targetRef="Activity_1xhnbiv">
+    <bpmn:sequenceFlow id="Flow_1pcy9k0" sourceRef="UserTask_showSupplier" targetRef="EndEvent_supplierSelected" />
+    <bpmn:sequenceFlow id="Flow_0uktble" sourceRef="Service_sendRFI" targetRef="Timer_awaitResponses" />
+    <bpmn:sequenceFlow id="Flow_0rbq71y" sourceRef="StartEvent_PRarised" targetRef="DMN_supplierDefined" />
+    <bpmn:sequenceFlow id="Flow_13ri5k9" sourceRef="DMN_supplierDefined" targetRef="Gateway_supplierDefined" />
+    <bpmn:sequenceFlow id="Flow_199o5cl" name="yes" sourceRef="Gateway_supplierDefined" targetRef="UserTask_showSupplier">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${availability}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1fwerwr" name="no" sourceRef="Gateway_10o3hv1" targetRef="Activity_14cxly3">
+    <bpmn:sequenceFlow id="Flow_1fwerwr" name="no" sourceRef="Gateway_supplierDefined" targetRef="UserTask_identifySupplier">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!availability}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_01jyu4k" sourceRef="Activity_14cxly3" targetRef="Activity_13h7t2e" />
-    <bpmn:sequenceFlow id="Flow_03l9w9i" sourceRef="Event_1b06a2t" targetRef="Activity_07xslqd" />
-    <bpmn:sequenceFlow id="Flow_1qvq2rw" sourceRef="Activity_07xslqd" targetRef="Activity_0yl1t98" />
-    <bpmn:sequenceFlow id="Flow_0b66omw" sourceRef="Activity_0yl1t98" targetRef="Activity_1b0c8hg" />
-    <bpmn:sequenceFlow id="Flow_14rybq3" sourceRef="Activity_1b0c8hg" targetRef="Event_19x59ft" />
+    <bpmn:sequenceFlow id="Flow_01jyu4k" sourceRef="UserTask_identifySupplier" targetRef="Service_sendRFI" />
+    <bpmn:sequenceFlow id="Flow_03l9w9i" sourceRef="Timer_awaitResponses" targetRef="UserTask_selectSupplier" />
+    <bpmn:sequenceFlow id="Flow_1qvq2rw" sourceRef="UserTask_selectSupplier" targetRef="Service_inviteAndReject" />
+    <bpmn:sequenceFlow id="Flow_0b66omw" sourceRef="Service_inviteAndReject" targetRef="Manual_negotiateTerms" />
+    <bpmn:sequenceFlow id="Flow_14rybq3" sourceRef="Manual_negotiateTerms" targetRef="EndEvent_supplierSelected" />
     <bpmn:dataStoreReference id="Flow_1uurkw5" name="Google" />
-    <bpmn:intermediateCatchEvent id="Event_1b06a2t" name="7 days">
+    <bpmn:intermediateCatchEvent id="Timer_awaitResponses" name="7 days">
       <bpmn:incoming>Flow_0uktble</bpmn:incoming>
       <bpmn:outgoing>Flow_03l9w9i</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0np2vsu">
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2M</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="Activity_1xhnbiv" name="Show preferred supplier" camunda:candidateGroups="strategicPurchasing">
+    <bpmn:userTask id="UserTask_showSupplier" name="Show preferred supplier" camunda:candidateGroups="strategicPurchasing">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="componentCategory" label="Component category" type="string" />
@@ -69,11 +69,11 @@
       <bpmn:incoming>Flow_199o5cl</bpmn:incoming>
       <bpmn:outgoing>Flow_1pcy9k0</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_19x59ft" name="Supplier selected">
+    <bpmn:endEvent id="EndEvent_supplierSelected" name="Supplier selected">
       <bpmn:incoming>Flow_14rybq3</bpmn:incoming>
       <bpmn:incoming>Flow_1pcy9k0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0yl1t98" name="Invite supplier for contract negotiation via email and reject other suppliers">
+    <bpmn:serviceTask id="Service_inviteAndReject" name="Invite supplier for contract negotiation via email and reject other suppliers">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -96,7 +96,7 @@
       <bpmn:incoming>Flow_1qvq2rw</bpmn:incoming>
       <bpmn:outgoing>Flow_0b66omw</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_07xslqd" name="Select best supplier" camunda:candidateGroups="strategicPurchasing">
+    <bpmn:userTask id="UserTask_selectSupplier" name="Select best supplier" camunda:candidateGroups="strategicPurchasing">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="selectedEmail" label="Type email address of selected supplier" type="string" />
@@ -110,7 +110,7 @@
         <bpmn:targetRef>Property_1xh2des</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_13h7t2e" name="send request for information">
+    <bpmn:serviceTask id="Service_sendRFI" name="send request for information">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -123,7 +123,7 @@
       <bpmn:incoming>Flow_01jyu4k</bpmn:incoming>
       <bpmn:outgoing>Flow_0uktble</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Activity_14cxly3" name="Identify suppliers" camunda:candidateGroups="strategicPurchasing">
+    <bpmn:userTask id="UserTask_identifySupplier" name="Identify suppliers" camunda:candidateGroups="strategicPurchasing">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="readRequirements">
@@ -157,12 +157,12 @@
         <bpmn:targetRef>Flow_1uurkw5</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_10o3hv1" name="Is defined?">
+    <bpmn:exclusiveGateway id="Gateway_supplierDefined" name="Is defined?">
       <bpmn:incoming>Flow_13ri5k9</bpmn:incoming>
       <bpmn:outgoing>Flow_1fwerwr</bpmn:outgoing>
       <bpmn:outgoing>Flow_199o5cl</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:businessRuleTask id="Activity_17ocfqj" name="Check if preferred supplier is defined" camunda:resultVariable="availabilityResult" camunda:decisionRef="Decision_1j2wrna" camunda:mapDecisionResult="singleResult">
+    <bpmn:businessRuleTask id="DMN_supplierDefined" name="Check if preferred supplier is defined" camunda:resultVariable="availabilityResult" camunda:decisionRef="Decision_1j2wrna" camunda:mapDecisionResult="singleResult">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="readComponentCategory">
@@ -175,11 +175,11 @@
       <bpmn:incoming>Flow_0rbq71y</bpmn:incoming>
       <bpmn:outgoing>Flow_13ri5k9</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:startEvent id="Event_0u7ckkv" name="Purchasing requirement  arised">
+    <bpmn:startEvent id="StartEvent_PRarised" name="Purchasing requirement  arised">
       <bpmn:outgoing>Flow_0rbq71y</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1gdtoty" messageRef="Message_0ryqwrr" />
     </bpmn:startEvent>
-    <bpmn:manualTask id="Activity_1b0c8hg" name="Negotiate contract terms">
+    <bpmn:manualTask id="Manual_negotiateTerms" name="Negotiate contract terms">
       <bpmn:incoming>Flow_0b66omw</bpmn:incoming>
       <bpmn:outgoing>Flow_14rybq3</bpmn:outgoing>
     </bpmn:manualTask>
@@ -193,14 +193,14 @@
     <bpmn:textAnnotation id="TextAnnotation_0lpbraw">
       <bpmn:text>3.1</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0b0piam" sourceRef="Activity_0yl1t98" targetRef="TextAnnotation_0lpbraw" />
-    <bpmn:association id="Association_1q9enl9" sourceRef="Activity_13h7t2e" targetRef="TextAnnotation_0yywweq" />
-    <bpmn:association id="Association_14u732s" sourceRef="Event_0u7ckkv" targetRef="TextAnnotation_14xt8ge" />
+    <bpmn:association id="Association_0b0piam" sourceRef="Service_inviteAndReject" targetRef="TextAnnotation_0lpbraw" />
+    <bpmn:association id="Association_1q9enl9" sourceRef="Service_sendRFI" targetRef="TextAnnotation_0yywweq" />
+    <bpmn:association id="Association_14u732s" sourceRef="StartEvent_PRarised" targetRef="TextAnnotation_14xt8ge" />
   </bpmn:process>
   <bpmn:message id="Message_0ryqwrr" name="PurchasingRequestArised" />
   <bpmn:message id="Message_0z8nqmv" name="SupplierEmailArised" />
   <bpmn:process id="Process_18hb94t" isExecutable="true">
-    <bpmn:businessRuleTask id="Activity_1gkfdhz" name="Check experience of potential suppliers" camunda:resultVariable="OutputExperience" camunda:decisionRef="Decision_0l01cbh" camunda:mapDecisionResult="singleResult">
+    <bpmn:businessRuleTask id="Check_experienceSufficient" name="Check experience of potential suppliers" camunda:resultVariable="OutputExperience" camunda:decisionRef="Decision_0l01cbh" camunda:mapDecisionResult="singleResult">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="Experience">
@@ -212,16 +212,16 @@
       <bpmn:incoming>Flow_0be9ksf</bpmn:incoming>
       <bpmn:outgoing>Flow_0ish4wc</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:startEvent id="Event_1xzi40e" name="Response received">
+    <bpmn:startEvent id="StartEvent_responseReceived" name="Response received">
       <bpmn:outgoing>Flow_0be9ksf</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0e8oeej" messageRef="Message_0z8nqmv" />
     </bpmn:startEvent>
-    <bpmn:exclusiveGateway id="Gateway_04a2as3" name="Enough experience?">
+    <bpmn:exclusiveGateway id="Gateway_experienceSufficient" name="Enough experience?">
       <bpmn:incoming>Flow_0ish4wc</bpmn:incoming>
       <bpmn:outgoing>Flow_1odjlpn</bpmn:outgoing>
       <bpmn:outgoing>Flow_19ad7ym</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Activity_1riynlt" name="List responses">
+    <bpmn:serviceTask id="Service_listResponses" name="List responses">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -254,10 +254,10 @@ out = JSON.stringify({
       <bpmn:incoming>Flow_1odjlpn</bpmn:incoming>
       <bpmn:outgoing>Flow_1hhiff5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_0kraxsn" name="Suppier responses collected">
+    <bpmn:endEvent id="EndEvent_responsesCollected" name="Suppier responses collected">
       <bpmn:incoming>Flow_1hhiff5</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_116qc6p" name="Reject supplier via email">
+    <bpmn:serviceTask id="Service_rejectSupplier" name="Reject supplier via email">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -286,31 +286,31 @@ out = JSON.stringify({
       <bpmn:incoming>Flow_19ad7ym</bpmn:incoming>
       <bpmn:outgoing>Flow_1h2ri48</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="Event_1ba9uew" name="Supplier rejected">
+    <bpmn:endEvent id="EndEvent_supplierRejected" name="Supplier rejected">
       <bpmn:incoming>Flow_1h2ri48</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1h2ri48" sourceRef="Activity_116qc6p" targetRef="Event_1ba9uew" />
-    <bpmn:sequenceFlow id="Flow_1hhiff5" sourceRef="Activity_1riynlt" targetRef="Event_0kraxsn" />
-    <bpmn:sequenceFlow id="Flow_1odjlpn" name="yes" sourceRef="Gateway_04a2as3" targetRef="Activity_1riynlt">
+    <bpmn:sequenceFlow id="Flow_1h2ri48" sourceRef="Service_rejectSupplier" targetRef="EndEvent_supplierRejected" />
+    <bpmn:sequenceFlow id="Flow_1hhiff5" sourceRef="Service_listResponses" targetRef="EndEvent_responsesCollected" />
+    <bpmn:sequenceFlow id="Flow_1odjlpn" name="yes" sourceRef="Gateway_experienceSufficient" targetRef="Service_listResponses">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${OutputExperience}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_19ad7ym" name="no" sourceRef="Gateway_04a2as3" targetRef="Activity_116qc6p">
+    <bpmn:sequenceFlow id="Flow_19ad7ym" name="no" sourceRef="Gateway_experienceSufficient" targetRef="Service_rejectSupplier">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!OutputExperience}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0ish4wc" sourceRef="Activity_1gkfdhz" targetRef="Gateway_04a2as3" />
-    <bpmn:sequenceFlow id="Flow_0be9ksf" sourceRef="Event_1xzi40e" targetRef="Activity_1gkfdhz" />
+    <bpmn:sequenceFlow id="Flow_0ish4wc" sourceRef="Check_experienceSufficient" targetRef="Gateway_experienceSufficient" />
+    <bpmn:sequenceFlow id="Flow_0be9ksf" sourceRef="StartEvent_responseReceived" targetRef="Check_experienceSufficient" />
     <bpmn:textAnnotation id="TextAnnotation_1ceztpe">
       <bpmn:text>2.4</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0gvqcsx" sourceRef="Activity_116qc6p" targetRef="TextAnnotation_1ceztpe" />
+    <bpmn:association id="Association_0gvqcsx" sourceRef="Service_rejectSupplier" targetRef="TextAnnotation_1ceztpe" />
     <bpmn:textAnnotation id="TextAnnotation_1k29ifn">
       <bpmn:text>2.3</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0imr43b" sourceRef="Activity_1riynlt" targetRef="TextAnnotation_1k29ifn" />
+    <bpmn:association id="Association_0imr43b" sourceRef="Service_listResponses" targetRef="TextAnnotation_1k29ifn" />
     <bpmn:textAnnotation id="TextAnnotation_0xqcxrg">
       <bpmn:text>2.1; 2.2</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_11kou3w" sourceRef="Event_1xzi40e" targetRef="TextAnnotation_0xqcxrg" />
+    <bpmn:association id="Association_11kou3w" sourceRef="StartEvent_responseReceived" targetRef="TextAnnotation_0xqcxrg" />
   </bpmn:process>
   <bpmn:message id="Message_02c52h3" name="SupplierSelectionProcess" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -379,49 +379,49 @@ out = JSON.stringify({
           <dc:Bounds x="687" y="241" width="36" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0d4ajv4_di" bpmnElement="Event_1b06a2t">
+      <bpmndi:BPMNShape id="Event_0d4ajv4_di" bpmnElement="Timer_awaitResponses">
         <dc:Bounds x="1062" y="372" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1064" y="415" width="33" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1nnmatu_di" bpmnElement="Activity_1xhnbiv">
+      <bpmndi:BPMNShape id="Activity_1nnmatu_di" bpmnElement="UserTask_showSupplier">
         <dc:Bounds x="650" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_19x59ft_di" bpmnElement="Event_19x59ft">
+      <bpmndi:BPMNShape id="Event_19x59ft_di" bpmnElement="EndEvent_supplierSelected">
         <dc:Bounds x="1762" y="372" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1737" y="433" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0yl1t98_di" bpmnElement="Activity_0yl1t98">
+      <bpmndi:BPMNShape id="Activity_0yl1t98_di" bpmnElement="Service_inviteAndReject">
         <dc:Bounds x="1420" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_07xslqd_di" bpmnElement="Activity_07xslqd">
+      <bpmndi:BPMNShape id="Activity_07xslqd_di" bpmnElement="UserTask_selectSupplier">
         <dc:Bounds x="1240" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_13h7t2e_di" bpmnElement="Activity_13h7t2e">
+      <bpmndi:BPMNShape id="Activity_13h7t2e_di" bpmnElement="Service_sendRFI">
         <dc:Bounds x="810" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0t2x810_di" bpmnElement="Activity_14cxly3">
+      <bpmndi:BPMNShape id="Activity_0t2x810_di" bpmnElement="UserTask_identifySupplier">
         <dc:Bounds x="650" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_10o3hv1_di" bpmnElement="Gateway_10o3hv1" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_10o3hv1_di" bpmnElement="Gateway_supplierDefined" isMarkerVisible="true">
         <dc:Bounds x="545" y="365" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="544" y="341" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1rrwjcf_di" bpmnElement="Activity_17ocfqj">
+      <bpmndi:BPMNShape id="Activity_1rrwjcf_di" bpmnElement="DMN_supplierDefined">
         <dc:Bounds x="381" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0q4l1f4_di" bpmnElement="Event_0u7ckkv">
+      <bpmndi:BPMNShape id="Event_0q4l1f4_di" bpmnElement="StartEvent_PRarised">
         <dc:Bounds x="263" y="372" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="250" y="415" width="62" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1b0c8hg_di" bpmnElement="Activity_1b0c8hg">
+      <bpmndi:BPMNShape id="Activity_1b0c8hg_di" bpmnElement="Manual_negotiateTerms">
         <dc:Bounds x="1590" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1d2ht4n_di" bpmnElement="DataStoreReference_1d2ht4n">
@@ -491,34 +491,34 @@ out = JSON.stringify({
         <di:waypoint x="730" y="860" />
         <di:waypoint x="802" y="860" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_1gkfdhz_di" bpmnElement="Activity_1gkfdhz">
+      <bpmndi:BPMNShape id="Activity_1gkfdhz_di" bpmnElement="Check_experienceSufficient">
         <dc:Bounds x="350" y="710" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1xzi40e_di" bpmnElement="Event_1xzi40e">
+      <bpmndi:BPMNShape id="Event_1xzi40e_di" bpmnElement="StartEvent_responseReceived">
         <dc:Bounds x="242" y="732" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="235" y="694.5" width="50" height="27" />
+          <dc:Bounds x="235" y="695" width="50" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_04a2as3_di" bpmnElement="Gateway_04a2as3" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_04a2as3_di" bpmnElement="Gateway_experienceSufficient" isMarkerVisible="true">
         <dc:Bounds x="515" y="725" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="510" y="688" width="60" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1riynlt_di" bpmnElement="Activity_1riynlt">
+      <bpmndi:BPMNShape id="Activity_1riynlt_di" bpmnElement="Service_listResponses">
         <dc:Bounds x="630" y="710" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0kraxsn_di" bpmnElement="Event_0kraxsn">
+      <bpmndi:BPMNShape id="Event_0kraxsn_di" bpmnElement="EndEvent_responsesCollected">
         <dc:Bounds x="802" y="732" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="795" y="775" width="52" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_116qc6p_di" bpmnElement="Activity_116qc6p">
+      <bpmndi:BPMNShape id="Activity_116qc6p_di" bpmnElement="Service_rejectSupplier">
         <dc:Bounds x="630" y="820" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1ba9uew_di" bpmnElement="Event_1ba9uew">
+      <bpmndi:BPMNShape id="Event_1ba9uew_di" bpmnElement="EndEvent_supplierRejected">
         <dc:Bounds x="802" y="842" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="779" y="885" width="83" height="14" />
