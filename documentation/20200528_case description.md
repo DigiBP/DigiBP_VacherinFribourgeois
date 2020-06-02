@@ -225,7 +225,16 @@ User tasks take obviously longer to be processed than automated tasks, the user 
 
 ## Power BI
 
-Power BI accesses the proccess log via API from Camunda.
+Power BI accesses the process log via API from Camunda.
+
+With power BI, the strategic purchaser can gain insight into the microservice process which handles the supplier responses received.
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Power%20BI%20microservice.PNG?raw=true)
+
+On the left side, he sees the flow of the process and how many instances went which way. As the process is fully automated and goes through immediately, we do not bother about the duration of the individual tasks, although they could be seen as well.
+
+On the right side, he can check how many offers he receives each day and below how many of them, in percentage,
+the system automatically rejects due to a lack of industry experience.
 
 
 
