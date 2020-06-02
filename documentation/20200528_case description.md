@@ -213,7 +213,15 @@ To process the log data in the process mining application Disco, it needs to be 
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/5%20getlogfile.PNG?raw=true)
 
-sdjfsah
+Through process mining with Disco, it is easy to spot where the process has further improvement potential. Below we list a few interesting points which became clear.
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/ProcessMining_Disco1.png?raw=true)
+
+In 7 out of total 11 cases, a new supplier had to be identified. The company would therefore be well adivsed to define additional “preferred suppliers” for component categories which currently lack a preferred supplier.
+
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/ProcessMining_Disco2.png?raw=true)
+
+User tasks take obviously longer to be processed than automated tasks, the user task which takes the longest, should be a candidate for further automatization. Wang Lihong claimed 10 user tasks whereas Laurin Schmid claimed 8 user tasks. It can be said that Laurin Schmid is considerably faster to finish the user tasks than Wang Lihong.
 
 ## Power BI
 
