@@ -233,8 +233,4 @@ With power BI, the strategic purchaser can gain insight into the microservice pr
 
 On the left side, he sees the flow of the process and how many instances went which way. As the process is fully automated and goes through immediately, we do not bother about the duration of the individual tasks, although they could be seen as well.
 
-On the right side, he can check how many offers he receives each day and below how many of them, in percentage,
-the system automatically rejects due to a lack of industry experience.
-
-
-
+On the right side, he can check how many offers he receives each day and below how many of them, in percentage, the system automatically rejects due to a lack of industry experience.
