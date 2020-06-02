@@ -254,7 +254,7 @@ out = JSON.stringify({
       <bpmn:incoming>Flow_1odjlpn</bpmn:incoming>
       <bpmn:outgoing>Flow_1hhiff5</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="EndEvent_responsesCollected" name="Suppier responses collected">
+    <bpmn:endEvent id="EndEvent_responsesCollected" name="Supplier responses collected">
       <bpmn:incoming>Flow_1hhiff5</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Service_rejectSupplier" name="Reject supplier via email">
