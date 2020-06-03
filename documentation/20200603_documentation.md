@@ -12,13 +12,13 @@ The final to-be process looks as following:
 
 ![](https://raw.githubusercontent.com/DigiBP/DigiBP_VacherinFribourgeois/f9fdd23439cee49da05be3f62ebc365375c7e332/documentation/pictures/Supplier%20selection%20to-be_200528.svg)
 
-
-
 The process is split into 2 parts because the second process is is executed for each supplier response, while the first part is only executed once per purchasing request. Additionally, this approach represents the microservices approach, which allows processes to be reused in other processes. 
 
 For an overview, the image below shows all Integromat scenarios which we used in the process:
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Integromat%20Overview.png?raw=true)
+
+
 
 # Process description
 
@@ -30,7 +30,7 @@ The process starts with a chatbot.
 
 
 
-The purchase requisitor is being asked for the sailing ship component he or she wants to order, including the requirements, the budget and the preferred delivery date. After the chatbot has received all required information, the data is stored in a Google sheet. AND AS VARIABLE??
+The purchase requisitor is being asked for the sailing ship component he or she wants to order, including the requirements, the budget and the preferred delivery date. After the chatbot has received all required information, the data is stored in a Google sheet. 
 
 In the screenshot below, the training phrases of the chatbot are visible:
 
@@ -68,7 +68,7 @@ If the component category is for example mast or wood, it results in true, meani
 
 In this process step, the preferred supplier from the decision table output "preferred supplier" and the component category from the chatbot entry are displayed. Since a preferred supplier is available, the supplier selection process can be completed.
 
-![](C:\Users\Stefan\OneDrive\FHNW OneDrive\41_DBP\DigiBP_Repository_Vacherin\DigiBP_VacherinFribourgeois-1\documentation\pictures\Show preferred supplier_Heroku.png)
+![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Show%20preferred%20supplier_Heroku.png?raw=true)
 
 ## Identify suppliers
 
@@ -96,7 +96,7 @@ As this is not a real-life process with actual suppliers, our supplier responses
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.1.PNG?raw=true)
 
-So that it is possible to further process the responses with the help of Regex, the responses should have a similiar sturcture and contain the industry experience in [years] and the price in [CHF].
+So that it is possible to further process the responses with the help of Regex, the responses should have a similar structure and contain the industry experience in [years] and the price in [CHF].
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.1%20message.png?raw=true)
 
@@ -150,11 +150,11 @@ The supplier is rejected with the following message:
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/2.4%20message.PNG?raw=true)
 
-Hereby, the second process is completed with "Supplier rejected". ALTER PRINT SCREEN?
+Hereby, the second process is completed with "Supplier rejected". 
 
 ## List responses (Integromat 2.3)
 
-If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message. The **business key** is taken from the respective Google sheet and all variables are put into the Google sheet "supplierResponse", second sheet "Shortlist". Additionally, the **time stamp**, is stored in an additional column. 
+If the supplier has 3 or more years of industry experience, then **email address**, **price** and **industry experience** are extracted from the message. The **business key** is taken from the respective Google sheet and all variables are put into the Google sheet "supplierResponse", first sheet "Shortlist". Additionally, the **time stamp**, is stored in an additional column. 
 
 
 
@@ -195,7 +195,7 @@ The process finishes with "Supplier selected".
 
 # User Management in Camunda
 
-In Camunda we created a group of three strategic purchasers "strategicPurchasing", which includes the users Max Meier, Lihong Wang and Laurin Schmid. All user tasks in our process can be claimed by either user of the group "StrategicPurchasing". The users were given were given the necessary authorizations.
+In Camunda we created a group of three strategic purchasers "StrategicPurchasing", which includes the users Max Meier, Lihong Wang and Laurin Schmid. All user tasks in our process can be claimed by either user of the group "StrategicPurchasing". The users were given were given the necessary authorizations.
 
 ![](https://github.com/DigiBP/DigiBP_VacherinFribourgeois/blob/master/documentation/pictures/Group strategic purchasing.png?raw=true)
 
